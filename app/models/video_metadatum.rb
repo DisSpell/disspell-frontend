@@ -1,0 +1,2 @@
+class VideoMetadatum < ApplicationRecord
+end
