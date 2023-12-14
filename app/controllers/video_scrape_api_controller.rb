@@ -1,0 +1,2 @@
+class VideoScrapeApiController < ApplicationController
+end

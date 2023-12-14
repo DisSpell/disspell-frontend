@@ -28,17 +28,28 @@ class VideoTranscriptionApiJobTest < ActiveJob::TestCase
   test "Check first Platform" do
     assert Platform.first.name == "youtube"
   end
+
+  # test "Platform is unique" do
+  #   assert Platform.first
+ 
+  test "Check for Channel Id" do
+    assert Channel.first.channel_id == "UCSp-OaMpsO8K0KkOqyBl7_w"
+  end
   
-  # test "get first json object's title" do
-    # assert @data[0]["title"] = "Rust’s most popular framework just got a major upgrade"
-  # end
-  
-  # test "check number of results" do
-    # assert @data.count == 4
-  # end
-  
-  # test "Populate 2nd item into database" do
-    # @response
-  # end
+  test "Check for Channel Platform Id" do
+    assert Channel.first.platform_id == Platform.first.id
+  end
+
+  test "VideoMetaDatum thumbnail url" do
+    assert VideoMetadatum.first.thumbnail_url == "https://i.ytimg.com/vi/e9l1VKz8AgQ/default.jpg"
+  end
+
+  test "Video metadata video id" do
+    assert VideoMetadatum.first.video_id == Video.first.id
+  end
+
+  test "Video metadata channel id" do
+    assert VideoMetadatum.first.channel_id == Channel.first.id
+  end
 end
    
