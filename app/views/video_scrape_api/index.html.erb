@@ -1,0 +1,25 @@
+<div>
+ <h1><%= @video.title %></h1>
+ <p>video metadatum</p>
+ <p><%= @meta.url %></p>
+ <p><%= @meta.thumbnail_url %></p>
+ <p><%= @meta.video_identifier %></p>
+ <p><%= @meta.published_date %></p>
+ <p>channel id <%= @meta.channel_id %></p>
+ <p>video id <%= @meta.video_id %></p>
+</div>
+<div>
+<h2><%= @channel.title %></h2>
+<p>channel id <%= @channel.channel_id %></p>
+<p><%= @channel.url %></p>
+<p>platform id <%= @channel.platform_id %></p>
+</div>
+<div>
+<h3><%= @platform.name %></h3>
+<p><%= @platform.url %></p>
+</div>
+<div>
+<h3>transcript</h3>
+<p><%= @transcript.language %></p>
+<p>video id <%= @transcript.video_id %></p>
+<p><%= @transcript.transcript %></p>
