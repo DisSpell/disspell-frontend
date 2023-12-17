@@ -1,0 +1,30 @@
+<div> <h1>search/index.html.erb</h1></div>
+
+<%= form_with url: "/search", method: :get do |form| %>
+  <%= form.label :query, "Search for:" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Search" %>
+<% end %>
+
+
+<% if @video %>
+<h3> video search </h3>
+  <% @video.each do |video| %>
+    <div>
+      <%= video.id %>
+      <%= video.title %>
+      <%= video.description %>
+    </div>
+  <% end %>
+<% end %>
+ 
+
+<% if @transcript %>
+  <h3> Transcript </h3>
+  <% @transcript.each do |transcript| %>
+    <div>
+      <%= transcript.language %>
+      <%= transcript.transcript %>
+    </div><br>
+  <% end %>
+<% end %>
