@@ -3,6 +3,8 @@ class SearchController < ApplicationController
     if params[:query].present?
         @video = Video.search_video(params[:query])
         @transcript = Transcript.search_transcript(params[:query])
+        
+        @result = (@video.map(&:id) + @transcript.map(&:video_id)).uniq
     end
   end
 
