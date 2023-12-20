@@ -1,30 +1,33 @@
 module SearchHelper
-  def multi_excerpt(text, phrase, options = {})
-   return unless text && phrase
-   
-   radius  = options.fetch(:radius, 100)
-   omission = options.fetch(:omission, "...")
-   
-   raise if phrase.is_a? Regexp
-   regex = /.{,#{radius}}#{Regexp.escape(phrase)}.{,#{radius}}/i
-   parts = text.scan(regex)
+  def multi_excerpt(text, phrase)
+    return unless text && phrase
     
-   # To include the timestamp, we need to extract it from the text
-   # We assume the timestamp format is hh:mm:ss.mmm
-   timestamp_regex = /\d{2}:\d{2}:\d{2}\.\d{3}/
-   timestamps = text.scan(timestamp_regex)
-   
-   # We then pair each part with its corresponding timestamp
-   # We use zip to combine the two arrays into an array of arrays
-   # We use map to transform each subarray into a string
-   # We use join to concatenate the strings with a separator
-   result = parts.zip(timestamps)
-  #  .map {|part, timestamp| "#{timestamp} #{part}"}
+    a = text.split("\n")
+    # remove the empty strings and the first element
+    a = a.select {|s| s != "" && s != "WEBVTT"}
+    # split the array into two subarrays: one for the timestamps and one for the parts
+    timestamps, parts = a.partition {|s| s.match (/\d{2}:\d{2}:\d{2}\.\d{3}/)}
 
-  #  Result = Struct.new(:parts, :timestamps)
-  #  result = Result.new(parts, timestamps)
-   
-   return result
+    # puts "PARTS", parts
+    # puts "TIMESTAMPS FIRST", timestamps
+    # puts "-" * 80
+
+    timestamps_array = []
+    # select the line that contains the word
+    line = parts.select {|s| s.match (/#{phrase}/i)}.each do |part|
+      index = parts.find_index (part)
+      # puts "INDEX HERER", index
+      timestamps_array.push(timestamps[index])  
+    end
+
+    # puts "TIMESTAMP HERE", timestamps_array
+    # puts "LINE HERE", line
+
+    result = [line, timestamps_array]
+
+    # puts "RESULT", result
+
+    return result
   end
  end
  

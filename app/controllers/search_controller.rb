@@ -4,7 +4,8 @@ class SearchController < ApplicationController
         @video = Video.search_video(params[:query])
         @transcript = Transcript.search_transcript(params[:query])
         
-        @result = (@video.map(&:id) + @transcript.map(&:video_id)).uniq
+        #result is the video ids of matched searches
+        @result = (@video.map(&:id) + @transcript.map(&:video_id))
     end
   end
 

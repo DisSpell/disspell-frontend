@@ -6,17 +6,23 @@
   <%= form.submit "Search" %>
 <% end %>
 
-<% @result.each do |result| %>
-  <% video = Video.find(result) %>
-    <%= video.id %>
-    <%= highlight(video.title, params[:query]) %>
-    <% multi_excerpt(@transcript.find_by(video_id: video.id).transcript, params[:query]).each do |excerpt|%>
-        <br>   
-        <p><%= params[:query] %></p>
-        <p><%= excerpt[1] %></p>
-        <p><%= highlight(excerpt[0], params[:query]) %></p>
-        <br> 
+
+<% if @result %>
+  <% @result.each do |result| %>
+    <h1> AT THE FUCKING START </h1>
+    <% video = Video.find(result) %>
+    <p> VIDEO ID: <%= video.id %></p>
+    <h1>TITLE: <%= highlight(video.title, params[:query]) %></h1>
+    <p>PARAM: <%= params[:query] %></p>
+    <% video_transcript_ts = multi_excerpt(@transcript.find_by(video_id: video.id).transcript, params[:query]) %>
+    <% video_transcript_ts[0].each_with_index do |part, index| %>
+      <br>
+      <p><%= video_transcript_ts[1][index] %></p>
+      <p><%= highlight(part, params[:query]) %></p>
+      <br> 
     <% end %>
+    <%= @transcript.find(result).transcript %>
     <h1> AT THE FUCKING END </h1>
+  <% end %>
 <% end %>
     
