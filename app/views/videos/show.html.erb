@@ -1,0 +1,20 @@
+<div>
+I am in the show fucking here!!!
+</div>
+
+<h1><%= highlight(@video.title, "rust") %></h1>
+<p><%= @platform.name %></p>
+<h5><%= @channel.title %></p>
+<img src="<%= @meta.thumbnail_url %>" alt="video's thumbnail" />
+<p><%= @meta.video_identifier %></p>
+<p><%= @meta.published_date %></p>
+<h5>Transcript:</h5>
+<p>link: <%= @meta.url %></p>
+<p><%= @transcript.language %></p>
+<% @parts_timestramps_arrays.each do |subarray| %>
+    <p>Timestamp:<%= subarray.first %></p>
+    <p>Part:<%= highlight(subarray.second, "rust") %></p>
+    <%# subarray.each do |item| %>
+        <!--<p><%# highlight(item, "rust") %></p>-->
+    <%# end %>
+<% end %>

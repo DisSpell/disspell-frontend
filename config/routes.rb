@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :video_scrape_api
   resources :search
+  resources :videos
   # Defines the root path route ("/")
   # root "posts#index"
 end
