@@ -12,17 +12,18 @@ default: &default
 
 development:
   <<: *default
-  username: "doom"
-  password: "123456"
+  # username: "doom"
+  password: 123456
   database: video_search_frontend_development
+  # port: 5433
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  username: "doom"
-  password: "123456"
+  # username: "doom"
+  # password: "123456"
   database: video_search_frontend_test
 
 production:
