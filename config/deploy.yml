@@ -2,17 +2,17 @@
 service: ai-video-search
 
 # Name of the container image.
-image: user/ai-video-search
+image: aivideosearch/aivideosearch
 
 # Deploy to these servers.
 servers:
-  - 192.168.0.1
+  - 45.79.10.188
 
 # Credentials for your image host.
 registry:
   # Specify the registry server, if you're not using Docker Hub
   # server: registry.digitalocean.com / ghcr.io / ...
-  username: my-user
+  username: aivideosearch
 
   # Always use an access token rather than real password when possible.
   password:
@@ -20,11 +20,11 @@ registry:
 
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
-# env:
-#   clear:
-#     DB_HOST: 192.168.0.2
-#   secret:
-#     - RAILS_MASTER_KEY
+env:
+  clear:
+    DB_HOST: 45.79.10.188
+  secret:
+    - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
 # ssh:
@@ -41,27 +41,25 @@ registry:
 #     host: ssh://app@192.168.0.1
 
 # Use accessory services (secrets come from .env).
-# accessories:
-#   db:
-#     image: mysql:8.0
-#     host: 192.168.0.2
-#     port: 3306
-#     env:
-#       clear:
-#         MYSQL_ROOT_HOST: '%'
-#       secret:
-#         - MYSQL_ROOT_PASSWORD
-#     files:
-#       - config/mysql/production.cnf:/etc/mysql/my.cnf
-#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-#     directories:
-#       - data:/var/lib/mysql
-#   redis:
-#     image: redis:7.0
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
+accessories:
+  db:
+    image: postgres:16
+    host: 45.79.10.188
+    port: 5432
+    env:
+      clear:
+        - PGHOST
+      secret:
+        - PGUSER
+        - PGPASSWORD
+    volumes:
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
+  redis:
+    image: redis
+    host: 45.79.10.188
+    port: 6379
+    directories:
+      - data:/data
 
 # Configure custom arguments for Traefik
 # traefik:
