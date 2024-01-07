@@ -13,10 +13,6 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
-
-# Throw-away build stage to reduce size of final image
-FROM base as build
-
 RUN --mount=type=cache,target=/var/cache/apt \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   --mount=type=tmpfs,target=/var/log \
@@ -35,6 +31,9 @@ RUN --mount=type=cache,target=/var/cache/apt \
 # Install packages needed to build gems
 # RUN apt-get update -qq && \
 #     apt-get install --no-install-recommends -y build-essential git libvips pkg-config
+
+# Throw-away build stage to reduce size of final image
+FROM base as build
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./

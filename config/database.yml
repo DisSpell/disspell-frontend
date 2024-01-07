@@ -28,4 +28,8 @@ test:
 
 production:
   <<: *default
-  database: video_search_frontend_production
+  host: ENV<%= "DB_HOST" %>
+  database: ENV<%= "POSTGRES_DATABASE" %>
+  username: ENV<%= "POSTGRES_USER" %>
+  password: ENV<%= "POSTGRES_PASSWORD" %>
+  port: 5432

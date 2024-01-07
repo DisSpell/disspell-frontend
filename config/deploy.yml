@@ -22,9 +22,12 @@ registry:
 # Remember to run `kamal env push` after making changes!
 env:
   clear:
+    POSTGRES_DATABASE: "video_search_frontend_production"
+    POSTGRES_USER: "postgres"
     DB_HOST: 45.79.10.188
   secret:
     - RAILS_MASTER_KEY
+    - POSTGRES_PASSWORD
 
 # Use a different ssh user than root
 # ssh:
@@ -48,12 +51,15 @@ accessories:
     port: 5432
     env:
       clear:
-        - PGHOST
+        - DB_HOST
+        - POSTGRES_USER
+        - POSTGRES_DATABASE
       secret:
-        - PGUSER
-        - PGPASSWORD
-    volumes:
-      - /var/lib/postgresql/data:/var/lib/postgresql/data
+        - POSTGRES_PASSWORD
+    files:
+      - config/init.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/postgresql/data
   redis:
     image: redis
     host: 45.79.10.188
