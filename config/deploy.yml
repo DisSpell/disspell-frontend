@@ -6,7 +6,8 @@ image: aivideosearch/aivideosearch
 
 # Deploy to these servers.
 servers:
-  - 45.79.10.188
+  web:
+    - 45.79.10.188
 
 # Credentials for your image host.
 registry:
@@ -70,8 +71,9 @@ accessories:
 # Configure custom arguments for Traefik
 # traefik:
 #   args:
-#     accesslog: true
-#     accesslog.format: json
+#     entryPoints.web.address: ":80"
+    # accesslog: true
+    # accesslog.format: json
 
 # Configure a custom healthcheck (default is /up on port 3000)
 # healthcheck:
