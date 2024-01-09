@@ -26,6 +26,8 @@ env:
     POSTGRES_DATABASE: "video_search_frontend_production"
     POSTGRES_USER: "postgres"
     DB_HOST: 45.79.10.188
+    RAILS_LOG_TO_STDOUT: 1
+    RAILS_SERVE_STATIC_FILES: 1
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PASSWORD
