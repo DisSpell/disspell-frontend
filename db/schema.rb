@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_04_222816) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_12_232548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_222816) do
     t.bigint "video_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.tsvector "tsvector_content_tsearch"
+    t.index ["tsvector_content_tsearch"], name: "transcripts_tsvector_content_tsearch_idx", using: :gin
     t.index ["video_id"], name: "index_transcripts_on_video_id"
   end
 
@@ -59,6 +61,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_222816) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.tsvector "tsvector_content_tsearch"
+    t.index ["tsvector_content_tsearch"], name: "videos_tsvector_content_tsearch_idx", using: :gin
   end
 
   add_foreign_key "channels", "platforms"

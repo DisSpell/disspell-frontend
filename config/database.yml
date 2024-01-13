@@ -12,7 +12,7 @@ default: &default
 
 development:
   <<: *default
-  # username: "doom"
+  username: "doom"
   password: 123456
   database: video_search_frontend_development
   # port: 5433
@@ -22,8 +22,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  # username: "doom"
-  # password: "123456"
+  username: "doom"
+  password: 123456
   database: video_search_frontend_test
 
 production:
