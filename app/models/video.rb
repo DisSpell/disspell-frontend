@@ -12,4 +12,11 @@ class Video < ApplicationRecord
         prefix: true
       }
     }
+
+  after_save :update_tsvector_column
+
+  def update_tsvector_column
+    # self.update_column(:tsvector_content_tsearch, to_tsvector('english', title))
+    self.class.connection.execute("UPDATE videos SET tsvector_content_tsearch = to_tsvector('english', title) WHERE id = #{self.id}")
+  end
 end

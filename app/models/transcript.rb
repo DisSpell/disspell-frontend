@@ -12,4 +12,11 @@ class Transcript < ApplicationRecord
         prefix: true
       }
     }
+
+  after_save :update_tsvector_column
+
+  def update_tsvector_column
+    # self.update_column(:tsvector_content_tsearch, to_tsvector('english', transcript))
+    self.class.connection.execute("UPDATE transcripts SET tsvector_content_tsearch = to_tsvector('english', transcript) WHERE id = #{self.id}")
+  end
 end
