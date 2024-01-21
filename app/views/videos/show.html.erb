@@ -1,11 +1,27 @@
-<div>
-I am in the show fucking here!!!
+<div class="transcript-container">
+  <section id="video-details">
+    <h1><%= highlight(@video.title, "rust") %></h1>
+    <p><%= @platform.name %></p>
+    <h5><%= @channel.title %></h5>
+    <img src="<%= @meta.thumbnail_url %>" alt="video's thumbnail" />
+    <p><%= @meta.video_identifier %></p>
+    <p><%= @meta.published_date %></p>
+  </section>
+  <section id="video-player">
+    <div id="player"></div>
+  </section>
+  <section id="transcript">
+    <h5>Transcript:</h5>
+    <p>link: <%= @meta.url %></p>
+    <p><%= @transcript.language %></p>
+    <% @parts_timestramps_arrays.each do |subarray| %>
+        <p><%= subarray.first %></p>
+        <p onclick="jumpToThisTime(event)"><%= highlight(subarray.second, "rust") %></p>
+    <% end %>
+  </section>
 </div>
 
-<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-<div id="player"></div>
-
-<script defer>
+<script>
   // 2. This code loads the IFrame Player API code asynchronously.
   var tag = document.createElement('script');
 
@@ -18,10 +34,12 @@ I am in the show fucking here!!!
   var player;
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-      height: '390',
-      width: '640',
+      // height: '390',
+      // width: '640',
         videoId: "<%= @meta.video_identifier %>",
       playerVars: {
+        'enablejsapi': 1,
+        'origin': window.location.origin,
         'playsinline': 1
       },
       events: {
@@ -42,55 +60,34 @@ I am in the show fucking here!!!
   var done = false;
   function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING && !done) {
-      setTimeout(stopVideo, 6000);
+      // setTimeout(stopVideo, 6000);
       done = true;
     }
   }
+
   function stopVideo() {
     player.stopVideo();
   }
 
-// Add the event parameter to the function
-function jumpToThisTime(event) {
-  // Now you can access the event object
+  function jumpToThisTime(event) {
     var timestamp = event.target.previousElementSibling;
-    console.log(timestamp);
-
     var time = toSeconds(timestamp.innerText.split("-->")[0].trim());
-    console.log(time);
     player.seekTo(time); 
-}
+  }
 
-function toSeconds(time) {
-  // Split the time by the separators
-  var parts = time.split(/[:.]/);
-  // Get the hours, minutes, seconds, and milliseconds
-  var hours = parseInt(parts[0], 10);
-  var minutes = parseInt(parts[1], 10);
-  var seconds = parseInt(parts[2], 10);
-  var milliseconds = parseInt(parts[3], 10);
-  // Calculate the total seconds
-  var total = hours * 3600 + minutes * 60 + seconds + milliseconds / 1000;
-  // Return the result
-  return Math.round(total);
-}
+  function toSeconds(time) {
+    // Split the time by the separators
+    var parts = time.split(/[:.]/);
+    // Get the hours, minutes, seconds, and milliseconds
+    var hours = parseInt(parts[0], 10);
+    var minutes = parseInt(parts[1], 10);
+    var seconds = parseInt(parts[2], 10);
+    var milliseconds = parseInt(parts[3], 10);
+    // Calculate the total seconds
+    var total = hours * 3600 + minutes * 60 + seconds + milliseconds / 1000;
+    // Return the result
+    return Math.round(total);
+  }
 </script>
 
-<p>Hello World</p>
 
-<h1><%= highlight(@video.title, "rust") %></h1>
-<p><%= @platform.name %></p>
-<h5><%= @channel.title %></p>
-<img src="<%= @meta.thumbnail_url %>" alt="video's thumbnail" />
-<p><%= @meta.video_identifier %></p>
-<p><%= @meta.published_date %></p>
-<h5>Transcript:</h5>
-<p>link: <%= @meta.url %></p>
-<p><%= @transcript.language %></p>
-<% @parts_timestramps_arrays.each do |subarray| %>
-    <p><%= subarray.first %></p>
-    <p onclick="jumpToThisTime(event)">Part:<%= highlight(subarray.second, "rust") %></p>
-    <%# subarray.each do |item| %>
-        <!--<p><%# highlight(item, "rust") %></p>-->
-    <%# end %>
-<% end %>

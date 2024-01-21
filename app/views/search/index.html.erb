@@ -9,7 +9,6 @@
 
 <% if @result %>
   <% @result.each do |result| %>
-    <h1> AT THE FUCKING START </h1>
     <% video = Video.find(result) %>
     <p> VIDEO ID: <%= video.id %></p>
     <h1>TITLE: <%= highlight(video.title, params[:query]) %></h1>
@@ -23,9 +22,7 @@
         <p><%= highlight(part, params[:query]) %></p>
         <br> 
       <% end %>
-      <%# highlight(@transcript.find(result).transcript, params[:query]) %>
     <% end %>
-    <h1> AT THE FUCKING END </h1>
   <% end %>
 <% end %>
     
