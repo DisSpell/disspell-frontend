@@ -12,7 +12,7 @@ default: &default
 
 development:
   <<: *default
-  username: "doom"
+  #username: "doom"
   password: 123456
   database: video_search_frontend_development
   # port: 5433
