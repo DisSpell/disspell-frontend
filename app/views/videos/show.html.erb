@@ -1,23 +1,27 @@
 <div class="transcript-container">
-  <section id="video-details">
-    <h1><%= highlight(@video.title, "rust") %></h1>
-    <p><%= @platform.name %></p>
-    <h5><%= @channel.title %></h5>
-    <img src="<%= @meta.thumbnail_url %>" alt="video's thumbnail" />
-    <p><%= @meta.video_identifier %></p>
-    <p><%= @meta.published_date %></p>
-  </section>
   <section id="video-player">
-    <div id="player"></div>
+    <div id="video-player-wrapper">
+      <div id="player"></div>
+    </div>
+    <div id="video-metadata">
+      <h1><%= highlight(@video.title, "rust") %></h1>
+      <p><%= @platform.name %></p>
+      <h5><%= @channel.title %></h5>
+      <img src="<%= @meta.thumbnail_url %>" alt="video's thumbnail" />
+      <p><%= @meta.video_identifier %></p>
+      <p><%= @meta.published_date %></p>
+    </div>
   </section>
-  <section id="transcript">
-    <h5>Transcript:</h5>
-    <p>link: <%= @meta.url %></p>
-    <p><%= @transcript.language %></p>
-    <% @parts_timestramps_arrays.each do |subarray| %>
-        <p><%= subarray.first %></p>
-        <p onclick="jumpToThisTime(event)"><%= highlight(subarray.second, "rust") %></p>
-    <% end %>
+  <section id="video-details">
+    <section id="transcript">
+      <h5>Transcript:</h5>
+      <p>link: <%= @meta.url %></p>
+      <p><%= @transcript.language %></p>
+      <% @parts_timestramps_arrays.each do |subarray| %>
+          <p><%= subarray.first %></p>
+          <p onclick="jumpToThisTime(event)"><%= highlight(subarray.second, "rust") %></p>
+      <% end %>
+    </section>
   </section>
 </div>
 
@@ -51,7 +55,7 @@
 
   // 4. The API will call this function when the video player is ready.
   function onPlayerReady(event) {
-    event.target.playVideo();
+    // event.target.playVideo();
   }
 
   // 5. The API calls this function when the player's state changes.

@@ -1,33 +1,38 @@
 .transcript-container {
   height: 100vh;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  /* grid-template-rows: 1fr 1fr; */
   display: grid;
-  /* grid-template-areas: */
-  /*   'video-details video-details' */
-  /*   'video-player transcript'; */
-}
-
-#video-details {
-  grid-column: 1/3;
-  overflow-y: scroll;
 }
 
 #video-player {
-  position: relative;
-  padding-bottom: 56.25%;
   grid-column: 1/2;
-  /* width: 50%; */
+  overflow: auto;
+}
+
+#video-player-wrapper {
+  aspect-ratio: 16/9;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 #video-player iframe {
-  position: absolute;
-  width: 100%;
   height: 100%;
+  left: -.5%;
+  position: absolute;
+  top: -.5%;
+  width: 100%;
+}
+
+#video-details {
+  position: relative;
+  grid-column: 2/3;
+  overflow-y: auto;
+  text-align: center;
 }
 
 #transcript {
-  grid-column: 2/3;
-  text-align: center;
-  overflow-y: scroll;
 }
+
