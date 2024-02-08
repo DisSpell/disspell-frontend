@@ -2,4 +2,4 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "custom/ps"
-import "lit/test"
+import "lit/youtube-video-wrapper"
