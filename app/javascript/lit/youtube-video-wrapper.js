@@ -1,4 +1,4 @@
-import {LitElement, html, css} from 'lit';
+import { LitElement, html, css } from 'lit';
 
 class YoutubeVideoWrapper extends LitElement {
   static styles = css`
@@ -20,45 +20,52 @@ class YoutubeVideoWrapper extends LitElement {
   `;
 
   static properties = {
-    videoId: { type: String }
+    videoId: { type: String },
+    player: {}
   };
 
   constructor() {
     super();
     this.videoId = '';
-    this.player;
+    this.player = null;
   }
 
   connectedCallback() {
     super.connectedCallback();
-    // Load the YouTube iframe API script dynamically
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this);
+    if (!window.YT) {
+      // Load the YouTube iframe API script dynamically if not already loaded
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this);
+    } else {
+      // If the API is already loaded, directly call the initialization function
+      this.onYouTubeIframeAPIReady();
+    }
   }
 
   onYouTubeIframeAPIReady() {
-    this.player = new YT.Player('youtube-player', {
-        videoId: this.videoId,
-        events: {
-          'onReady': this.onPlayerReady(event),
-          'onStateChange': this.onPlayerStateChange(this)
-        }
+    this.player = new YT.Player(this.shadowRoot.getElementById('youtube-player'), {
+      videoId: this.videoId,
+      events: {
+        'onReady': this.onPlayerReady.bind(this),
+        'onStateChange': this.onPlayerStateChange.bind(this)
+      }
     });
-    console.log('new player ready?');
+
+    console.log(this.player);
+    console.log('isitready?');
   }
 
   onPlayerReady(event) {
-    // document.getElementById('youtube-player').style.borderColor = '#FF6D00';
-    console.log('hi')
+    console.log('Player is ready');
+    // You can perform actions when the player is ready here
   }
 
   onPlayerStateChange(event) {
-    // changeBorderColor(event.data);
-    console.log('state change?');
-    console.log(event);
+    console.log('Player state changed:', event.data);
+    // You can handle player state changes here
   }
 
   render() {
@@ -67,7 +74,7 @@ class YoutubeVideoWrapper extends LitElement {
         id="youtube-player"
         width="560"
         height="315"
-        src="https://www.youtube.com/embed/${this.videoId}"
+        src="https://www.youtube.com/embed/${this.videoId}?enablejsapi=1"
         title="YouTube video player"
         frameborder="1"
         origin="http://localhost:3000"
@@ -77,4 +84,5 @@ class YoutubeVideoWrapper extends LitElement {
     `;
   }
 }
+
 customElements.define('youtube-video-wrapper', YoutubeVideoWrapper);
