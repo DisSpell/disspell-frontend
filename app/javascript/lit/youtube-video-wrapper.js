@@ -53,9 +53,6 @@ class YoutubeVideoWrapper extends LitElement {
         'onStateChange': this.onPlayerStateChange.bind(this)
       }
     });
-
-    console.log(this.player);
-    console.log('isitready?');
   }
 
   onPlayerReady(event) {

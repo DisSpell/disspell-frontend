@@ -1,5 +1,5 @@
 <section class="video-parent">
-  <section id="video-player">
+  <section id="video-player" data-controller="perfect-scrollbar">
     <youtube-video-wrapper videoId=<%= @meta.video_identifier %>></youtube-video-wrapper>
     <div id="video-metadata">
       <h1><%= highlight(@video.title, "rust") %></h1>
@@ -10,7 +10,7 @@
       <p><%= @meta.published_date %></p>
     </div>
   </section>
-  <section id="video-details">
+  <section id="video-details" data-controller="perfect-scrollbar">
     <section id="transcript">
       <h5>Transcript:</h5>
       <p>link: <%= @meta.url %></p>

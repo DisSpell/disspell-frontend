@@ -7,14 +7,23 @@
 
 #video-player {
   grid-column: 1/2;
-  overflow: auto;
+  position: relative;
+  padding-left: 6px;
+}
+
+#video-player .ps__rail-y {
+  left: 0px;
+}
+
+#video-player .ps__thumb-y {
+  left: 0px;
 }
 
 #video-details {
   position: relative;
   grid-column: 2/3;
-  overflow-y: auto;
   text-align: center;
+  padding-right: 6px;
 }
 
 #transcript {
