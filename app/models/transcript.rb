@@ -2,6 +2,17 @@ class Transcript < ApplicationRecord
   include PgSearch::Model
   belongs_to :video
 
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+  
+  mapping do
+    indexes :transcript, type: :text
+  end
+
+  def self.search(query)
+    # build and run search
+  end
+
     
   pg_search_scope :search_transcript,
     against: :transcript, 

@@ -1,5 +1,14 @@
 class Platform < ApplicationRecord
     has_many :channels, dependent: :destroy
+
+    include Elasticsearch::Model
+    include Elasticsearch::Model::Callbacks
+    
+    # mapping do
+    #     indexes :name, type: :text
+    # end
+
+
     # before_create :check_unique_name
 
     # private

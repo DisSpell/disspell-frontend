@@ -1,15 +1,6 @@
 class VideoScrapeApiController < ApplicationController
     skip_before_action :verify_authenticity_token
 
-    # def index
-    #     @video = Video.first
-    #     @meta = @video.video_metadata[0]
-    #     @transcript = @video.transcripts[0]
-    #     @channel = Channel.find(@meta.channel_id)
-    #     @platform = Platform.find(@channel.platform_id)
-    # end
-
-
     def create
         paramaters = params["_json"].each do |json|
             video = Video.find_or_create_by(title: json["title"]) do |video|
@@ -43,6 +34,22 @@ class VideoScrapeApiController < ApplicationController
                 meta.published_date = json["published_date"]
                 meta.video_id = video.id
                 meta.channel_id = channel.id
+            end
+
+            Search.create! do |search|
+                search.video_title = json["title"] 
+                search.video_description = json["description"]
+                search.transcript_language = json["language"]
+                search.transcript = json["transcript"]
+                search.platform_name = json["platform"]
+                search.channel_title = json["channel_title"]
+                search.thumbnail_url = json["thumbnail_url"]
+                search.published_date = json["published_date"]
+                search.video_id = video.id
+                search.transcript_id = transcript.id
+                search.platform_id = platform.id
+                search.channel_id = channel.id
+                search.meta_id = meta.id
             end
         end
     end
