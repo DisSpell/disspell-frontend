@@ -61,8 +61,12 @@ class YoutubeVideoWrapper extends LitElement {
   }
 
   onPlayerStateChange(event) {
-    console.log('Player state changed:', event.data);
     // You can handle player state changes here
+    console.log('Player state changed:', event.data);
+  }
+
+  jumpToThisTime(time) {
+    this.player.seekTo(time);
   }
 
   render() {
