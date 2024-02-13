@@ -17,7 +17,7 @@
       <p><%= @transcript.language %></p>
       <% @parts_timestramps_arrays.each do |subarray| %>
         <div class="vtt" data-controller="transcript">
-          <p><%= subarray.first %></p>
+          <p data-action="click->transcript#jumpToThisTime" data-transcript-target="timestamp"><%= subarray.first %></p>
           <p data-action="click->transcript#jumpToThisTime"><%= highlight(subarray.second, "rust") %></p>
         </div>
       <% end %>

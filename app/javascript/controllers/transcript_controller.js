@@ -1,14 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static targets = [ "timestamp" ]
+
   connect() {
     console.log('hello from transcript')
   }
 
   jumpToThisTime(event) {
+    // grab the initial timestamp
+    var timestamp = this.timestampTarget
     // Grab custom video player element
     const video_player = document.getElementsByTagName('youtube-video-wrapper')[0]
-    var timestamp = event.target.previousElementSibling; 
     // Split to get the start of the timestamp
     var time = this.toSeconds(timestamp.innerText.split("-->")[0]);
     // Call custom element's method to jump to specific time
@@ -27,6 +30,6 @@ export default class extends Controller {
     // Calculate the total seconds 
     var total = hours * 3600 + minutes * 60 + seconds + milliseconds / 1000; 
     // Return the result 
-    return Math.round(total); 
+    return Math.floor(total); 
   } 
 }
