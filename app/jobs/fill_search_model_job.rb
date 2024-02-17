@@ -30,6 +30,7 @@ class FillSearchModelJob < ApplicationJob
       Search.find_or_create_by(video_id: video_id) do |search|
         search.video_title = title
         search.video_description = description
+        search.transcript = transcript
         search.transcript_language = language
         search.platform_name = platform_name
         search.channel_title = channel_title
