@@ -21,11 +21,12 @@ class Search < ApplicationRecord
     # build and run search
 
     params = {
-      # size: 1,
+      # size: 10,
+      # from: 20,
       query: {
         bool: {
           should: [
-            { match: { video_title: { query: query, boost: 5 } } },
+            { match: { video_title: query } },
             { match: { transcript: query } },
           ],
         },
