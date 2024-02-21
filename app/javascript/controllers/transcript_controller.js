@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = [ "timestamp" ]
 
   connect() {
-    console.log('hello from transcript')
+    // do something when the controller connects
   }
 
   jumpToThisTime(event) {

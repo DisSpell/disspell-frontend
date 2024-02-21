@@ -56,13 +56,11 @@ class YoutubeVideoWrapper extends LitElement {
   }
 
   onPlayerReady(event) {
-    console.log('Player is ready');
     // You can perform actions when the player is ready here
   }
 
   onPlayerStateChange(event) {
     // You can handle player state changes here
-    console.log('Player state changed:', event.data);
   }
 
   jumpToThisTime(time) {
