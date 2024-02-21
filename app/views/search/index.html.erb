@@ -12,7 +12,7 @@
     <% video = Video.find(result) %>
     <p> VIDEO ID: <%= video.id %></p>
     <h1>TITLE: <%= highlight(video.title, params[:query]) %></h1>
-    <%= button_to 'Video Transcript', video_path(video), method: :get %>
+    <%= button_to 'Video Transcript', video_path(video), method: :get, class: 'custom-button' %>
     <p>PARAM: <%= params[:query] %></p>
     <% unless @transcript.find_by(video_id: video.id) == nil %>
       <% video_transcript_ts = multi_excerpt(@transcript.find_by(video_id: video.id).transcript, params[:query]) %>

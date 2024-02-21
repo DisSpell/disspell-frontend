@@ -7,3 +7,11 @@
   background-color: red;
 }
 
+#video-player .ps__rail-y {
+  left: 0px;
+}
+
+#video-player .ps__thumb-y {
+  left: 0px;
+}
+
