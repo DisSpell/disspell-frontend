@@ -13,6 +13,9 @@ gem "sprockets-rails"
 gem "pg"
 gem "pg_search"
 
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 

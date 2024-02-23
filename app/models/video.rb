@@ -3,6 +3,26 @@ class Video < ApplicationRecord
   has_many :video_metadata, dependent: :destroy
   has_many :transcripts, dependent: :destroy
 
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+  
+  mapping do
+    indexes :title, type: :text
+  end
+
+  def self.search(query)
+    # build and run search
+    params = {
+      query: {
+        match: {
+          title: query,
+        },
+      },
+    }
+
+    self.__elasticsearch__.search(params)
+  end
+
   pg_search_scope :search_video,
     against: [:title, :description],
     using: { 

@@ -1,32 +1,50 @@
 <div class="h-full overflow-y-hidden relative" data-controller="perfect-scrollbar">
   <h1>search/index.html.erb</h1>
+  <% unless @response == nil %>
+    <div> <%= @response.count %> </div>
+    <% @response.each do |x| %>
 
-<%= form_with url: "/search", method: :get do |form| %>
-  <%= form.label :query, "Search for:" %>
-  <%= form.text_field :query %>
-  <%= form.submit "Search", class: 'custom-button' %>
-<% end %>
+      <h1 style=>TITLE: <%= highlight(x._source.video_title, params[:query], highlighter: '<mark style="background-color:yellow";>\1</mark>') %></h1>
+      <%= button_to 'Video Transcript', video_path(x._source.video_id), method: :get, class: 'custom-button' %>
 
 
-<% if @result %>
-  <% @result.each do |result| %>
-    <div  class="video">
-      <% video = Video.find(result) %>
-      <p> VIDEO ID: <%= video.id %></p>
-      <h1>TITLE: <%= highlight(video.title, params[:query]) %></h1>
-      <%= button_to 'Video Transcript', video_path(video), method: :get, class: 'custom-button' %>
-      <p>PARAM: <%= params[:query] %></p>
-      <% unless @transcript.find_by(video_id: video.id) == nil %>
-        <% video_transcript_ts = multi_excerpt(@transcript.find_by(video_id: video.id).transcript, params[:query]) %>
+      <% unless x._source.transcript == nil %>
+        <% video_transcript_ts = multi_excerpt(x._source.transcript,  params[:query]) %>
         <% video_transcript_ts[0].each_with_index do |part, index| %>
-          <br>
           <p><%= video_transcript_ts[1][index] %></p>
           <p><%= highlight(part, params[:query]) %></p>
-          <br> 
         <% end %>
-    </div>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
+  <br>
+
+  <%= form_with url: "/search", method: :get do |form| %>
+    <%= form.label :query, "Search for:" %>
+    <%= form.text_field :query %>
+    <%= form.submit "Search", class: 'custom-button' %>
+  <% end %>
+
+
+  <% if @result %>
+    <% @result.each do |result| %>
+      <div  class="video">
+        <% video = Video.find(result) %>
+        <p> VIDEO ID: <%= video.id %></p>
+        <h1>TITLE: <%= highlight(video.title, params[:query]) %></h1>
+        <%= button_to 'Video Transcript', video_path(video), method: :get, class: 'custom-button' %>
+        <p>PARAM: <%= params[:query] %></p>
+        <% unless @transcript.find_by(video_id: video.id) == nil %>
+          <% video_transcript_ts = multi_excerpt(@transcript.find_by(video_id: video.id).transcript, params[:query]) %>
+          <% video_transcript_ts[0].each_with_index do |part, index| %>
+            <br>
+            <p><%= video_transcript_ts[1][index] %></p>
+            <p><%= highlight(part, params[:query]) %></p>
+            <br> 
+          <% end %>
+      </div>
+      <% end %>
+    <% end %>
+  <% end %>
     
 </div>

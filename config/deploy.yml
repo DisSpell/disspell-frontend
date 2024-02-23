@@ -4,11 +4,13 @@ service: ai-video-search
 # Name of the container image.
 image: aivideosearch/aivideosearch
 
+# Elastic search url ENV VARIABLE
+#ELASTICSEARCH_URL
+
 # Deploy to these servers.
 servers:
   web:
     - 45.79.10.188
-
 # Credentials for your image host.
 registry:
   # Specify the registry server, if you're not using Docker Hub
