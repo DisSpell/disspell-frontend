@@ -36,4 +36,33 @@ class Search < ApplicationRecord
 
     self.__elasticsearch__.search(params)
   end
+
+
+  def self.advanced_search(params)
+    # build and run search
+
+    params = {
+      # size: 10,
+      # from: 20,
+      query: {
+        bool: {
+          should: [
+            { match: { video_title: params[:title] } },
+          ],
+          filter: [
+            {
+              range: {
+                date: {
+                  gte: params[:date]
+                }
+              }
+            }
+          ]
+        },
+      },
+    }
+
+    self.__elasticsearch__.search(params)
+  end
+
 end

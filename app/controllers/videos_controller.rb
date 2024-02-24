@@ -2,7 +2,7 @@ class VideosController < ApplicationController
   include PartsTimestampsSplit
 
   def show
-    @video = Video.find(params[:id])
+    @video = Video.friendly.find(params[:id])
     @transcript = @video.transcripts[0]
     @meta = @video.video_metadata[0]
     @channel = Channel.find(@meta.channel_id)

@@ -5,7 +5,7 @@
     <% @response.each do |x| %>
 
       <h1 style=>TITLE: <%= highlight(x._source.video_title, params[:query], highlighter: '<mark style="background-color:yellow";>\1</mark>') %></h1>
-      <%= button_to 'Video Transcript', video_path(x._source.video_id), method: :get, class: 'custom-button' %>
+      <%= button_to 'Video Transcript', video_path(Video.find(x._source.video_id).slug), method: :get, class: 'custom-button' %>
 
 
       <% unless x._source.transcript == nil %>
@@ -32,7 +32,7 @@
         <% video = Video.find(result) %>
         <p> VIDEO ID: <%= video.id %></p>
         <h1>TITLE: <%= highlight(video.title, params[:query]) %></h1>
-        <%= button_to 'Video Transcript', video_path(video), method: :get, class: 'custom-button' %>
+        <%= button_to 'Video Transcript', video_path(video.slug), method: :get, class: 'custom-button' %>
         <p>PARAM: <%= params[:query] %></p>
         <% unless @transcript.find_by(video_id: video.id) == nil %>
           <% video_transcript_ts = multi_excerpt(@transcript.find_by(video_id: video.id).transcript, params[:query]) %>

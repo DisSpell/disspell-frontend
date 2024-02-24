@@ -1,0 +1,24 @@
+<br>
+<br>
+<h2>Advanced Search<h2>
+<br>
+<br>
+
+
+<%= form_with url: "/advanced_search", method: :get do |form|%>
+  <%= label_tag :title, "Title" %>
+  <%= text_field_tag :title, params[:title]%>
+  <br>
+  <%= label_tag :date, "DateAfter" %>
+  <%= text_field_tag :date, params[:date] %>
+  <%= form.submit "advanced_search" %>
+<% end %>
+
+  <%= @response %>
+  <%= params[:title] %>
+  <%= params[:date] %>
+  <br>
+  <%= params %>
+
+
+

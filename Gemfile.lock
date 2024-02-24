@@ -122,6 +122,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.2)
     faraday-net_http (3.1.0)
       net-http
+    friendly_id (5.5.1)
+      activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.0)
@@ -313,6 +315,7 @@ DEPENDENCIES
   debug
   elasticsearch-model
   elasticsearch-rails
+  friendly_id (~> 5.5.0)
   importmap-rails
   jbuilder
   pg
