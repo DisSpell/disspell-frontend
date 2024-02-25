@@ -17,6 +17,7 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
 gem 'friendly_id', '~> 5.5.0'
+gem 'meta-tags'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"

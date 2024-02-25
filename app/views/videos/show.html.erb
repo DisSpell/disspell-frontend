@@ -1,3 +1,10 @@
+<%
+  set_meta_tags(
+    title: @video.title
+  )
+%>
+
+
 <section class="video-parent grid grid-cols-2 h-full overflow-y-hidden">
   <section id="video-player" data-controller="perfect-scrollbar" class="relative pl-1.5">
     <youtube-video-wrapper videoId=<%= @meta.video_identifier %>></youtube-video-wrapper>
