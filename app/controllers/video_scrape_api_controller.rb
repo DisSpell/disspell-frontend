@@ -16,7 +16,6 @@ class VideoScrapeApiController < ApplicationController
             
             platform = Platform.find_or_create_by(name: json["platform"]) do |plat|
                 plat.name = json["platform"]
-                # plat.url = json["platform_url"]
             end
         
             channel = Channel.find_or_create_by(title: json["channel_title"]) do |chan|
@@ -45,6 +44,7 @@ class VideoScrapeApiController < ApplicationController
                 search.channel_title = json["channel_title"]
                 search.thumbnail_url = json["thumbnail_url"]
                 search.published_date = json["published_date"]
+                search.subdomain = json["subdomain"]
                 search.video_id = video.id
                 search.transcript_id = transcript.id
                 search.platform_id = platform.id
@@ -53,4 +53,15 @@ class VideoScrapeApiController < ApplicationController
             end
         end
     end
+
+    def search_setup
+    end
+
+    def post
+        puts params
+        InputSearchKeyJob.perform_now(params)
+        redirect_to search_setup_path
+    end
+
+
 end

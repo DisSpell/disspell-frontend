@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   resources :videos
   # Defines the root path route ("/")
   # root "posts#index"
+
+  get 'search-setup', to: 'video_scrape_api#search_setup'
+  post 'search-setup-post', to: 'video_scrape_api#post'
 end

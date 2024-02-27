@@ -1,0 +1,52 @@
+<div class="relative h-full text-center" data-controller="perfect-scrollbar">
+    <div>
+        <h1>Search Setup</h1>
+        <p>For search_term:</p>
+        <ul></ul>
+        <h2>Individual video:</h2>
+            SearchKey:0x00007f8e58bdbf58
+             <br>
+             id: 7,
+             <br>
+             search_term: "https://www.youtube.com/watch?v=tAaSXz8CBMc",
+             <br>
+             search_params: "individual_video",
+             <br>
+             platform: "youtube",
+             <br>
+             <br>
+        <h2>Channel video:</h2>
+            SearchKey:0x00007f8e59825bb0
+             <br>
+             id: 5,
+             <br>
+             search_term: "UCl2mFZoRqjw_ELax4Yisf6w",
+             <br>
+             search_params: "channel_id",
+             <br>
+             platform: "youtube",
+             <br>
+    </div>
+
+    <div>
+    <%= form_with url: "/search-setup-post", method: :post do |form| %>
+      <%= form.label :search_term, "Video url or Channel id" %>
+      <br>
+      <%= form.text_field :search_term %>
+      <br>
+      <%= form.label :search_params, "individual_video or channel_id" %>
+      <br>
+      <%= form.text_field :search_params %>
+      <br>
+      <%= form.label :platform, "Platform" %>
+      <br>
+      <%= form.text_field :platform %>
+      <br>
+      <%= form.label :subdomains, "Subdomains, split them with comma" %>
+      <br>
+      <%= form.text_field :subdomains %>
+      <br>
+      <%= form.submit "Search", class: "custom-button" %>
+    <% end %>
+    </div>
+</div
