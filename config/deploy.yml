@@ -31,6 +31,7 @@ env:
     DB_HOST: 5.78.112.67
     RAILS_LOG_TO_STDOUT: 1
     RAILS_SERVE_STATIC_FILES: 1
+    ELASTICSEARCH_URL: 5.78.112.67:9200
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PASSWORD
@@ -76,15 +77,12 @@ accessories:
     image: elasticsearch:7.5.2
     host: 5.78.112.67
     port: 9200
-    env:
-      discovery.type: single-node
-      - ELASTICSEARCH_URL
-    # files:
-    #   - config/initializers/elasticsearch.rb
+    env: 
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g -Des.enforce.bootstrap.checks=true
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
     volumes:
       - data:/usr/share/elasticsearch/data
-    # environment:
-    #   discovery.type: single-node
 
 # Configure custom arguments for Traefik
 # traefik:
