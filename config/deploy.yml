@@ -72,6 +72,14 @@ accessories:
     port: 6379
     directories:
       - data:/data
+  elastic:
+    image: elasticsearch:7.5.2
+    host: 5.78.112.67
+    port: 9200
+    files:
+      - config/initializers/elasticsearch.rb
+    directories:
+      - data:/usr/share/elasticsearch/data
 
 # Configure custom arguments for Traefik
 # traefik:
