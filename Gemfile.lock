@@ -139,6 +139,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    language_server-protocol (3.17.0.3)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -182,6 +183,7 @@ GEM
     pg_search (2.3.6)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
+    prism (0.24.0)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -236,12 +238,17 @@ GEM
     reline (0.4.1)
       io-console (~> 0.5)
     rexml (3.2.6)
+    ruby-lsp (0.14.5)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 0.22.0, < 0.25)
+      sorbet-runtime (>= 0.5.10782)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.16.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sorbet-runtime (0.5.11287)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -310,9 +317,11 @@ DEPENDENCIES
   jbuilder
   pg
   pg_search
+  prism (~> 0.24.0)
   puma (>= 5.0)
   rails (~> 7.1.1)
   redis (>= 4.0.1)
+  ruby-lsp
   selenium-webdriver
   sprockets-rails
   stimulus-rails
