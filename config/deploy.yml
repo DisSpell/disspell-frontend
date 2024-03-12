@@ -76,10 +76,15 @@ accessories:
     image: elasticsearch:7.5.2
     host: 5.78.112.67
     port: 9200
-    files:
-      - config/initializers/elasticsearch.rb
-    directories:
+    env:
+      discovery.type: single-node
+      - ELASTICSEARCH_URL
+    # files:
+    #   - config/initializers/elasticsearch.rb
+    volumes:
       - data:/usr/share/elasticsearch/data
+    # environment:
+    #   discovery.type: single-node
 
 # Configure custom arguments for Traefik
 # traefik:
