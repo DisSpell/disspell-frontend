@@ -5,6 +5,7 @@ class Search < ApplicationRecord
   mapping do
     indexes :video_title, type: :text
     indexes :video_description, type: :text
+    indexes :transcript, type: :text
     indexes :transcript_language, type: :keyword
     indexes :platform_name, type: :keyword
     indexes :channel_title, type: :text
