@@ -81,9 +81,10 @@ accessories:
     #   memlock:
     #     soft: -1
     #     hard: -1
-    # env: 
-    #   ES_JAVA_OPTS: "-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true"
-    #   # ES_PORT: 127.0.0.1:9200
+    env: 
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+        # "-Des.enforce.bootstrap.checks=true"
+      ES_PORT: 127.0.0.1:9200
     #   discovery.type: single-node
     #   # locking memory doesn't work and I can't fix it to save my life
     #   # It does not appear to be needed for production ready elastic
