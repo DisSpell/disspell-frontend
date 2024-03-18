@@ -14,10 +14,11 @@ servers:
       - 5.78.112.67
     labels:
       traefik.http.routers.ai-video-search.rule: Host(`disspell.com`)
-      traefik.http.routers.ai-video-search.entrypoints: websecure
+      traefik.http.routers.ai-video-search_secure.entrypoints: websecure
       traefik.http.routers.ai-video-search_secure.rule: Host(`disspell.com`)
-      traefik.http.routers.ai-video-search_secure.tls: true
       traefik.http.routers.ai-video-search_secure.tls.certresolver: letsencrypt
+    # options:
+    #   network: "private"
 
 # Credentials for your image host.
 registry:
@@ -64,8 +65,8 @@ accessories:
     image: postgres:16
     host: 5.78.112.67
     port: 5432
-    options:
-      network: "private"
+    # options:
+    #   network: "private"
     env:
       clear:
         - DB_HOST
@@ -89,8 +90,8 @@ accessories:
     image: elasticsearch:8.12.2
     host: 5.78.112.67
     port: 9200
-    options:
-      network: "private"
+    # options:
+    #   network: "private"
     # ulimits:
     #   memlock:
     #     soft: -1
@@ -104,7 +105,7 @@ accessories:
     #   # locking memory doesn't work and I can't fix it to save my life
     #   # It does not appear to be needed for production ready elastic
       # bootstrap.memory_lock: true
-    directories:
+    volumes:
       - elastic:/usr/share/elasticsearch/data
 
 # Configure custom arguments for Traefik
@@ -114,11 +115,13 @@ accessories:
     # accesslog: true
     # accesslog.format: json
 traefik:
+  image: traefik:v2.11.0
+  options:
     publish:
       - "443:443"
     volume:
       - "/letsencrypt/acme.json:/letsencrypt/acme.json"
-    network: "private"
+  # network: "private"
   args:
     entrypoints.web.address: ':80'
     entrypoints.websecure.address: ':443'
