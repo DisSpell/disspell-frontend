@@ -10,7 +10,14 @@ image: aivideosearch/aivideosearch
 # Deploy to these servers.
 servers:
   web:
-    - 5.78.112.67
+    hosts:
+      - 5.78.112.67
+    labels:
+      traefik.http.routers.maildown-web.rule: 'Host(`disspell.com`)'
+      traefik.http.routers.maildown-web.entrypoints: websecure
+      traefik.http.routers.maildown-web.tls.certresolver: letsencrypt
+      traefik.http.services.my-rails-app.loadbalancer.server.port: "3000"
+
 # Credentials for your image host.
 registry:
   # Specify the registry server, if you're not using Docker Hub
@@ -31,7 +38,7 @@ env:
     DB_HOST: 5.78.112.67
     RAILS_LOG_TO_STDOUT: 1
     RAILS_SERVE_STATIC_FILES: 1
-    ELASTICSEARCH_URL: 5.78.112.67:9200
+    # ELASTICSEARCH_URL: 5.78.112.67:9200
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PASSWORD
@@ -88,9 +95,9 @@ accessories:
     #   discovery.type: single-node
     #   # locking memory doesn't work and I can't fix it to save my life
     #   # It does not appear to be needed for production ready elastic
-    #   bootstrap.memory_lock: true
-    # volumes:
-    #   - data:/usr/share/elasticsearch/data
+      bootstrap.memory_lock: true
+    volumes:
+      - elastic:/usr/share/elasticsearch/data
 
 # Configure custom arguments for Traefik
 # traefik:
@@ -98,6 +105,19 @@ accessories:
 #     entryPoints.web.address: ":80"
     # accesslog: true
     # accesslog.format: json
+traefik:
+  options:
+    publish:
+      - 443:443
+    volume:
+      - "letsencrypt:/letsencrypt"
+  args:
+    entrypoints.web.address: ':80'
+    entrypoints.websecure.address: ':443'
+    certificatesResolvers.letsencrypt.acme.httpchallenge: true
+    certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web
+    certificatesResolvers.letsencrypt.acme.email: "1337ipJbP7U9mi9cdLngL3g5Napum7tWzM@protonmail.com"
+    certificatesResolvers.letsencrypt.acme.storage: /letsencrypt/acme.json
 
 # Configure a custom healthcheck (default is /up on port 3000)
 healthcheck:
