@@ -35,7 +35,7 @@ class VideoScrapeApiController < ApplicationController
                 meta.channel_id = channel.id
             end
 
-            Search.create! do |search|
+            Search.find_or_create_by(video_id: video.id) do |search|
                 search.video_title = json["title"] 
                 search.video_description = json["description"]
                 search.transcript_language = json["language"]

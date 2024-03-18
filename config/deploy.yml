@@ -102,6 +102,7 @@ accessories:
         # "-Des.enforce.bootstrap.checks=true"
       # ES_PORT: 127.0.0.1:9200
       discovery.type: single-node
+      xpack.security.enabled: false
       xpack.security.transport.ssl.enabled: false
     #   # locking memory doesn't work and I can't fix it to save my life
     #   # It does not appear to be needed for production ready elastic
