@@ -26,7 +26,7 @@ class VideoScrapeApiController < ApplicationController
                 chan.platform_id = platform.id
             end
             
-            VideoMetadatum.find_or_create_by(url: json["url"]) do |meta|
+            meta = VideoMetadatum.find_or_create_by(url: json["url"]) do |meta|
                 meta.url = json["url"]
                 meta.thumbnail_url = json["thumbnail_url"]
                 meta.video_identifier = json["video_id"]
