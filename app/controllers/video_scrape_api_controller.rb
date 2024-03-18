@@ -8,7 +8,7 @@ class VideoScrapeApiController < ApplicationController
                 video.description = json["description"]
             end
             
-            Transcript.find_or_create_by(transcript: json["transcript"]) do |trans|
+            transcript = Transcript.find_or_create_by(transcript: json["transcript"]) do |trans|
                 trans.language = json["language"]
                 trans.transcript = json["transcript"]
                 trans.video_id = video.id
@@ -62,6 +62,5 @@ class VideoScrapeApiController < ApplicationController
         InputSearchKeyJob.perform_now(params)
         redirect_to search_setup_path
     end
-
 
 end

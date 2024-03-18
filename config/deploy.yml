@@ -40,10 +40,11 @@ env:
     DB_HOST: 5.78.112.67
     RAILS_LOG_TO_STDOUT: 1
     RAILS_SERVE_STATIC_FILES: 1
-    # ELASTICSEARCH_URL: 5.78.112.67:9200
+    ELASTICSEARCH_URL: 5.78.112.67:9200
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PASSWORD
+    # - ELASTICSEARCH_URL
 
 # Use a different ssh user than root
 # ssh:
@@ -99,7 +100,7 @@ accessories:
     env: 
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
         # "-Des.enforce.bootstrap.checks=true"
-      ES_PORT: 127.0.0.1:9200
+      # ES_PORT: 127.0.0.1:9200
       discovery.type: single-node
       xpack.security.transport.ssl.enabled: false
     #   # locking memory doesn't work and I can't fix it to save my life
