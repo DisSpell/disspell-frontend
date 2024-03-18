@@ -52,6 +52,8 @@ class VideoScrapeApiController < ApplicationController
                 search.meta_id = meta.id
             end
         end
+
+        puts paramaters
     end
 
     def search_setup
