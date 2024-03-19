@@ -44,6 +44,7 @@ env:
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PASSWORD
+    - ELASTIC_PASSWORD
     # - ELASTICSEARCH_URL
 
 # Use a different ssh user than root
@@ -98,17 +99,34 @@ accessories:
     #     soft: -1
     #     hard: -1
     env: 
-      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
-        # "-Des.enforce.bootstrap.checks=true"
-      # ES_PORT: 127.0.0.1:9200
-      discovery.type: single-node
-      xpack.security.enabled: false
-      xpack.security.transport.ssl.enabled: false
-    #   # locking memory doesn't work and I can't fix it to save my life
-    #   # It does not appear to be needed for production ready elastic
-      # bootstrap.memory_lock: true
+      clear:
+        ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+          # "-Des.enforce.bootstrap.checks=true"
+        # ES_PORT: 127.0.0.1:9200
+        discovery.type: single-node
+        xpack.security.enabled: true
+        xpack.security.http.filter.enabled: true
+        xpack.security.http.filter.allow: 5.78.112.67
+        xpack.security.http.filter.deny: _all
+        xpack.security.transport.ssl.enabled: false
+        # locking memory doesn't work and I can't fix it to save my life
+        # It does not appear to be needed for production ready elastic
+        # bootstrap.memory_lock: true
+      secret:
+        - ELASTIC_PASSWORD
     volumes:
       - elastic:/usr/share/elasticsearch/data
+    cmd:
+      - /bin/bash
+      - -c
+      - |
+        # Wait for Elasticsearch to start up before running the setup commands
+        until curl -s http://localhost:9200/ > /dev/null; do
+          sleep 1
+        done
+        # Set up passwords for built-in users
+        echo "Setting up passwords..."
+        bin/elasticsearch-setup-passwords auto --batch --url http://5.78.112.67:9200
 
 # Configure custom arguments for Traefik
 # traefik:
