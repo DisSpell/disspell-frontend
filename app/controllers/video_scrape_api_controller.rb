@@ -3,22 +3,28 @@ class VideoScrapeApiController < ApplicationController
 
     def create
         paramaters = params["_json"].each do |json|
-            video = Video.find_or_create_by(title: json["title"]) do |video|
+            json = JSON.parse(json)
+
+            if VideoMetadatum.find_by(video_identifier: json["video_id"])
+                next
+            end
+
+            video = Video.create! do |video|
                 video.title = json["title"] 
                 video.description = json["description"]
             end
             
-            transcript = Transcript.find_or_create_by(transcript: json["transcript"]) do |trans|
+            transcript = Transcript.create! do |trans|
                 trans.language = json["language"]
                 trans.transcript = json["transcript"]
                 trans.video_id = video.id
             end
             
-            platform = Platform.find_or_create_by(name: json["platform"]) do |plat|
+            platform = Platform.create! do |plat|
                 plat.name = json["platform"]
             end
         
-            channel = Channel.find_or_create_by(title: json["channel_title"]) do |chan|
+            channel = Channel.create! do |chan|
                 chan.title = json["channel_title"]
                 chan.channel_id = json["channel_id"]
                 chan.scraped_date = nil
@@ -26,7 +32,7 @@ class VideoScrapeApiController < ApplicationController
                 chan.platform_id = platform.id
             end
             
-            meta = VideoMetadatum.find_or_create_by(url: json["url"]) do |meta|
+            meta = VideoMetadatum.create! do |meta|
                 meta.url = json["url"]
                 meta.thumbnail_url = json["thumbnail_url"]
                 meta.video_identifier = json["video_id"]
@@ -35,7 +41,7 @@ class VideoScrapeApiController < ApplicationController
                 meta.channel_id = channel.id
             end
 
-            Search.find_or_create_by(video_id: video.id) do |search|
+            Search.create! do |search|
                 search.video_title = json["title"] 
                 search.video_description = json["description"]
                 search.transcript_language = json["language"]
