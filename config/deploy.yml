@@ -17,8 +17,8 @@ servers:
       traefik.http.routers.ai-video-search_secure.entrypoints: websecure
       traefik.http.routers.ai-video-search_secure.rule: Host(`disspell.com`)
       traefik.http.routers.ai-video-search_secure.tls.certresolver: letsencrypt
-    # options:
-    #   network: "private"
+    options:
+      network: "internal"
 
 # Credentials for your image host.
 registry:
@@ -67,8 +67,8 @@ accessories:
     image: postgres:16
     host: 5.78.112.67
     port: 5432
-    # options:
-    #   network: "private"
+    options:
+      network: "internal"
     env:
       clear:
         - DB_HOST
@@ -85,6 +85,8 @@ accessories:
     image: redis
     host: 5.78.112.67
     port: 6379
+    options:
+      network: "internal"
     directories:
       - data:/data
 
@@ -92,6 +94,8 @@ accessories:
     image: elasticsearch:8.12.2
     host: 5.78.112.67
     port: 9200
+    options:
+      network: "internal"
     # options:
     #   network: "private"
     # ulimits:
@@ -105,9 +109,9 @@ accessories:
         # ES_PORT: 127.0.0.1:9200
         discovery.type: single-node
         xpack.security.enabled: true
-        xpack.security.http.filter.enabled: true
-        xpack.security.http.filter.allow: 5.78.112.67
-        xpack.security.http.filter.deny: _all
+        # xpack.security.http.filter.enabled: true
+        # xpack.security.http.filter.allow: 5.78.112.67
+        # xpack.security.http.filter.deny: _all
         xpack.security.transport.ssl.enabled: false
         # locking memory doesn't work and I can't fix it to save my life
         # It does not appear to be needed for production ready elastic
@@ -116,17 +120,12 @@ accessories:
         - ELASTIC_PASSWORD
     volumes:
       - elastic:/usr/share/elasticsearch/data
-    cmd:
-      - /bin/bash
-      - -c
-      - |
-        # Wait for Elasticsearch to start up before running the setup commands
-        until curl -s http://localhost:9200/ > /dev/null; do
-          sleep 1
-        done
-        # Set up passwords for built-in users
-        echo "Setting up passwords..."
-        bin/elasticsearch-setup-passwords auto --batch --url http://5.78.112.67:9200
+    # cmd: >
+    #   /bin/bash -c "
+    #   until curl -s http://ai-video-search-elastic:9200/ > /dev/null; do sleep 1; done;
+    #   echo 'Setting up passwords...';
+    #   bin/elasticsearch-setup-passwords auto --batch --url http://ai-video-search-elastic:9200;
+    #   "
 
 # Configure custom arguments for Traefik
 # traefik:

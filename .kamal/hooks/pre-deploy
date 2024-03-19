@@ -1,0 +1,14 @@
+REMOTE_HOST="root@5.78.112.67"
+NETWORK_NAME="internal"
+
+# SSH into the remote host and execute Docker commands
+ssh "$REMOTE_HOST" << EOF
+    # Check if the Docker network already exists
+    if ! docker network inspect "$NETWORK_NAME" &>/dev/null; then
+        # If it doesn't exist, create it
+        docker network create "$NETWORK_NAME"
+        echo "Created Docker network: $NETWORK_NAME"
+    else
+        echo "Docker network $NETWORK_NAME already exists, skipping creation."
+    fi
+EOF
