@@ -1,3 +1,6 @@
+Rails.logger.info "Elasticsearch URL: #{ENV.fetch('ELASTIC_URL', 'not set')}"
+Rails.logger.info "Elasticsearch User: #{ENV.fetch('ELASTIC_USER', 'not set')}"
+
 if Rails.env.production?
   Elasticsearch::Model.client = Elasticsearch::Client.new(
     url: ENV['ELASTIC_URL'],
