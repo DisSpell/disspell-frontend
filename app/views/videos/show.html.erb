@@ -9,7 +9,7 @@
   <section id="video-player" data-controller="perfect-scrollbar" class="relative pl-1.5">
     <youtube-video-wrapper videoId=<%= @meta.video_identifier %>></youtube-video-wrapper>
     <div id="video-metadata">
-      <h1><%= highlight(@video.title, "rust") %></h1>
+      <h1><%= highlight(@video.title, params[:query], highlighter: '<mark style="background-color:yellow";>\1</mark>') %></h1>
       <p><%= @platform.name %></p>
       <h5><%= @channel.title %></h5>
       <img src="<%= @meta.thumbnail_url %>" alt="video's thumbnail" />

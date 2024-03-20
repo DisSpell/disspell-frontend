@@ -1,5 +1,5 @@
 <div class="h-full overflow-y-hidden relative" data-controller="perfect-scrollbar">
-  <h1>search/index.html.erb</h1>
+  <h1> Search Videos <%= params[:query] %> </h1>
   <% unless @response == nil %>
     <div> <%= @response.count %> </div>
     <% @response.each do |x| %>
