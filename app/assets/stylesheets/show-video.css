@@ -1,4 +1,4 @@
-.transcript-container {
+.video-parent {
   height: 100vh;
   grid-template-columns: 1fr 1fr;
   /* grid-template-rows: 1fr 1fr; */
@@ -7,30 +7,23 @@
 
 #video-player {
   grid-column: 1/2;
-  overflow: auto;
-}
-
-#video-player-wrapper {
-  aspect-ratio: 16/9;
-  display: block;
-  overflow: hidden;
   position: relative;
-  width: 100%;
+  padding-left: 6px;
 }
 
-#video-player iframe {
-  height: 100%;
-  left: -.5%;
-  position: absolute;
-  top: -.5%;
-  width: 100%;
+#video-player .ps__rail-y {
+  left: 0px;
+}
+
+#video-player .ps__thumb-y {
+  left: 0px;
 }
 
 #video-details {
   position: relative;
   grid-column: 2/3;
-  overflow-y: auto;
   text-align: center;
+  padding-right: 6px;
 }
 
 #transcript {
