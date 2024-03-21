@@ -252,6 +252,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sitemap_generator (6.3.0)
+      builder (~> 3.0)
     sorbet-runtime (0.5.11287)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -329,6 +331,7 @@ DEPENDENCIES
   redis (>= 4.0.1)
   ruby-lsp
   selenium-webdriver
+  sitemap_generator
   sprockets-rails
   stimulus-rails
   tailwindcss-rails

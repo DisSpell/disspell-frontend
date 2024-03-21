@@ -1,11 +1,11 @@
 <div class="h-full overflow-y-hidden relative" data-controller="perfect-scrollbar">
-  <h1> Search Videos <%= params[:query] %> </h1>
+  <h1> AI Video Search <%= params[:query] %> </h1>
   <% unless @response == nil %>
     <div> <%= @response.count %> </div>
     <% @response.each do |x| %>
 
       <h1 style=>TITLE: <%= highlight(x._source.video_title, params[:query], highlighter: '<mark style="background-color:yellow";>\1</mark>') %></h1>
-      <%= button_to 'Video Transcript', video_path(Video.find(x._source.video_id).slug), method: :get, class: 'custom-button' %>
+      <%= button_to 'Video Transcript', video_path(Video.find(x._source.video_id).slug), method: :get, params: {query: params[:query]}, class: 'custom-button' %>
 
 
       <% unless x._source.transcript == nil %>
