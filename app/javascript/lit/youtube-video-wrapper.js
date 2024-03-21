@@ -21,13 +21,15 @@ class YoutubeVideoWrapper extends LitElement {
 
   static properties = {
     videoId: { type: String },
-    player: {}
+    player: {},
+    isPlayerReady: { type: Boolean, reflect: true }
   };
 
   constructor() {
     super();
     this.videoId = '';
     this.player = null;
+    this.isPlayerReady = false;
   }
 
   connectedCallback() {
@@ -56,7 +58,8 @@ class YoutubeVideoWrapper extends LitElement {
   }
 
   onPlayerReady(event) {
-    // You can perform actions when the player is ready here
+    // the player is now ready
+    this.isPlayerReady = true;
   }
 
   onPlayerStateChange(event) {
@@ -64,7 +67,11 @@ class YoutubeVideoWrapper extends LitElement {
   }
 
   jumpToThisTime(time) {
-    this.player.seekTo(time);
+    if (this.isPlayerReady && this.player) {
+      this.player.seekTo(time);
+    } else {
+      console.error('Player is not ready.');
+    }
   }
 
   render() {
