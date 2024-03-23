@@ -16,6 +16,10 @@ gem "pg_search"
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
+gem 'friendly_id', '~> 5.5.0'
+gem 'meta-tags'
+gem 'sitemap_generator'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 

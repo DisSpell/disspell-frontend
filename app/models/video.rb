@@ -3,6 +3,9 @@ class Video < ApplicationRecord
   has_many :video_metadata, dependent: :destroy
   has_many :transcripts, dependent: :destroy
 
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders]
+
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
   

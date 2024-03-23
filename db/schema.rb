@@ -14,6 +14,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_162026) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "advanced_searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "channels", force: :cascade do |t|
     t.string "title"
     t.string "channel_id"
@@ -23,6 +28,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_162026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["platform_id"], name: "index_channels_on_platform_id"
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
   create_table "platforms", force: :cascade do |t|
@@ -81,6 +97,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_162026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.tsvector "tsvector_content_tsearch"
+    t.string "slug"
+    t.index ["slug"], name: "index_videos_on_slug", unique: true
     t.index ["tsvector_content_tsearch"], name: "videos_tsvector_content_tsearch_idx", using: :gin
   end
 

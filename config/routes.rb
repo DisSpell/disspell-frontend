@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'contact_us/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
   resources :video_scrape_api
   resources :search
   resources :videos
+  resources :contact_us, only: [:index] 
   # Defines the root path route ("/")
   # root "posts#index"
 

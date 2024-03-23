@@ -1,8 +1,15 @@
+<%
+  set_meta_tags(
+    title: @video.title
+  )
+%>
+
+
 <section class="video-parent grid grid-cols-2 h-full overflow-y-hidden">
   <section id="video-player" data-controller="perfect-scrollbar" class="relative pl-1.5">
     <youtube-video-wrapper videoId=<%= @meta.video_identifier %>></youtube-video-wrapper>
     <div id="video-metadata">
-      <h1><%= highlight(@video.title, "rust") %></h1>
+      <h1><%= highlight(@video.title, params[:query], highlighter: '<mark style="background-color:yellow";>\1</mark>') %></h1>
       <p><%= @platform.name %></p>
       <h5><%= @channel.title %></h5>
       <img src="<%= @meta.thumbnail_url %>" alt="video's thumbnail" />
@@ -18,7 +25,7 @@
       <% @parts_timestramps_arrays.each do |subarray| %>
         <div class="vtt" data-controller="transcript">
           <p data-action="click->transcript#jumpToThisTime" data-transcript-target="timestamp"><%= subarray.first %></p>
-          <p data-action="click->transcript#jumpToThisTime"><%= highlight(subarray.second, "rust") %></p>
+          <p data-action="click->transcript#jumpToThisTime"><%= highlight(subarray.second, params[:query]) %></p>
         </div>
       <% end %>
     </section>
