@@ -1,0 +1,43 @@
+Crystal Ball: 🔮 (U+1F52E)
+Rabbit: 🐇 (U+1F407)
+Black Cat: 🐈‍⬛ (U+1F408 U+200D U+2B1B)
+Potion: 🧪 (U+1F9EA)
+Sparkles: ✨ (U+2728)
+Comet: ☄️ (U+2604)
+Glowing Star: 🌟 (U+1F31F)
+Dizzy: 💫 (U+1F4AB)
+Candle: 🕯️ (U+1F56F)
+Scroll: 📜 (U+1F4DC)
+Book of Shadows: 📖 (U+1F4D6)
+D : &#x1D507;
+P ? : &#11299;
+S: &#x1D54A;
+e: &#x1D556;
+s: &#x1D586;
+p: &#11427;
+circle of ': &#1161;
+construction sign: &#128679;
+per sign another P: &#8524;
+
+winds:
+&#3844;
+&#3845;
+&#3846;
+&#4048;
+&#4051;
+&#4052;
+&#3898;
+&#3899;
+
+
+interesting:
+&#3863;
+
+For the “Place of Interest Sign” (⌘), the HTML code is &#8984; or &#x2318;.
+For the “Astral Spiral” (🌀), the HTML code is &#127744; or &#x1F300;
+
+Pentagram: The pentagram symbol does not have a direct Unicode equivalent that is widely recognized, but you can use a star symbol as a substitute. For example, the HTML code for a black star is &#9733; or &#x2605;.
+Ankh: The Ankh symbol has a Unicode equivalent. The HTML code is &#x2625; or &#9765;.
+Eye of Horus: There isn’t a direct Unicode equivalent for the Eye of Horus, but you can use the “Eye” symbol as a substitute. The HTML code is &#x1F441; or &#128065;.
+
+
