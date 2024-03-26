@@ -3,3 +3,6 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "custom/ps"
 import "lit/youtube-video-wrapper"
+
+import "chartkick";
+import "Chart.bundle";
