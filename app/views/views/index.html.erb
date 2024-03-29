@@ -1,0 +1,31 @@
+<div class="h-full relative" data-controller="perfect-scrollbar">
+    <h1> views/index </h1>
+
+    <%= @views.count  %>
+
+    <h2> Video views </h2>
+    <%= area_chart @chart, height: "300px", width: "100vw", colors: ["#fa23827"] %>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h2> Search views </h2>
+    <%= area_chart @search, height: "300px", width: "100vw", colors: ["#fa23827"] %>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h2>Top tally whackers</h2>
+    <% @top_videos.each do |video| %>
+        <%= video[0]%> : <%= video[1] %>
+        <br>
+    <%end%>
+
+
+
+
+</div>

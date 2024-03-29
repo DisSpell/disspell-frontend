@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :video_scrape_api
   resources :search
   resources :videos
+  resources :views
   resources :contact_us, only: [:index] 
   # Defines the root path route ("/")
   # root "posts#index"
