@@ -18,3 +18,5 @@ pin "lit-html", to: "https://ga.jspm.io/npm:lit-html@3.1.1/lit-html.js"
 pin "lit-html/is-server.js", to: "https://ga.jspm.io/npm:lit-html@3.1.1/is-server.js"
 pin_all_from "app/javascript/lit", under: "lit"
 
+pin "chartkick", to: "https://ga.jspm.io/npm:chartkick@5.0.1/dist/chartkick.esm.js"
+pin "Chart.bundle", to: 'Chart.bundle.js'
