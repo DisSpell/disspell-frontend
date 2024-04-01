@@ -1,4 +1,0 @@
-Sitemap: https://www.disspell.com/sitemap.xml.gz
-
-
-User-agent: *
