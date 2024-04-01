@@ -6,10 +6,11 @@ class InputSearchKeyJob < ApplicationJob
 
   def perform(*args)
     # Do something later
-    puts args[0]
+    # puts args[0]
+    Rails.logger.info(args[0])
 
     url = "http://5.78.72.39/videos"
-    # url = "http://45.79.10.188/video_scrape_api"
+
     uri = URI(url)
     request = Net::HTTP.post(uri, args[0].to_json, headers = {'Accept' => 'application/json', 'Content-Type' => "application/json"})
     puts request
