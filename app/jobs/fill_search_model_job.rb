@@ -3,6 +3,8 @@ class FillSearchModelJob < ApplicationJob
 
   def perform(*args)
     # Do something later
+    #
+    # THis is just to have moved it into ElasticSearch
 
     Video.all.each do |video|
       title = video.title

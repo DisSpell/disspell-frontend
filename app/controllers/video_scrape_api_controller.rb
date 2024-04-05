@@ -2,8 +2,10 @@ class VideoScrapeApiController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def create
-        paramaters = params["_json"].each do |json|
+        parameters = params["_json"].each do |json|
             json = JSON.parse(json)
+
+            # debugger
 
             begin
                 ActiveRecord::Base.transaction do
@@ -11,29 +13,35 @@ class VideoScrapeApiController < ApplicationController
                         next
                     end
 
+                    Rails.logger.warn "________------------------^^^^^^^^^^AM I HERE?!?!?!^^^^^^^^^^^^^^^---------------________________"
+
                     video = Video.create! do |video|
                         video.title = json["title"] 
                         video.description = json["description"]
                     end
-                    
+
+                    # debugger
                     transcript = Transcript.create! do |trans|
                         trans.language = json["language"]
                         trans.transcript = json["transcript"]
                         trans.video_id = video.id
                     end
-                    
-                    platform = Platform.create! do |plat|
+
+                    Rails.logger.info "AT THE TRANSCRIPTION PART!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                    Rails.logger.info transcript
+
+                    platform = Platform.find_or_create_by(name: json["platform"]) do |plat|
                         plat.name = json["platform"]
                     end
-                
-                    channel = Channel.create! do |chan|
+
+                    channel = Channel.find_or_create_by(channel_id: json["channel_id"]) do |chan|
                         chan.title = json["channel_title"]
                         chan.channel_id = json["channel_id"]
                         chan.scraped_date = nil
                         chan.url = nil
                         chan.platform_id = platform.id
                     end
-                    
+
                     meta = VideoMetadatum.create! do |meta|
                         meta.url = json["url"]
                         meta.thumbnail_url = json["thumbnail_url"]
@@ -61,14 +69,11 @@ class VideoScrapeApiController < ApplicationController
                     end
                 end
             rescue ActiveRecord::RecordInvalid => e
-                puts "ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!! Attempting to create videos"
-                puts e
-                puts "^ that was the error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-              # Handle exception, log error, etc.
+                Rails.logger.error "Error occured when putting transcript in database: #{e}"
             end
         end
 
-        puts paramaters
+        puts parameters
     end
 
     def search_setup

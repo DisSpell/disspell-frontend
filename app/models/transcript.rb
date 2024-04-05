@@ -1,10 +1,11 @@
 class Transcript < ApplicationRecord
   include PgSearch::Model
-  belongs_to :video
-
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
   
+  belongs_to :video
+  validates_presence_of :transcript
+
   mapping do
     indexes :transcript, type: :text
   end
