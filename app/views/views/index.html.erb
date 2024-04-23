@@ -20,12 +20,20 @@
     <br>
 
     <h2>Top tally whackers</h2>
-    <% @top_videos.each do |video| %>
+    <% @newest_videos.each do |video| %>
         <%= video[0]%> : <%= video[1] %>
         <br>
     <%end%>
 
+    <br>
+    <br>
+    <br>
+    <br>
 
-
+    <h2>Top tally whackers</h2>
+    <% @top_videos.each do |video| %>
+        <%= video[0]%> : <%= video[1] %>
+        <br>
+    <%end%>
 
 </div>
