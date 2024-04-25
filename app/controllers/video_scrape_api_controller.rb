@@ -85,4 +85,18 @@ class VideoScrapeApiController < ApplicationController
         redirect_to search_setup_path
     end
 
+    def get_videos
+        puts params
+        already_done = []
+        params['_json'].each do |vid_id|
+            puts "am I here?"
+            video = VideoMetadatum.find_by(video_identifier: vid_id)
+            if video
+                already_done << video.video_identifier
+            end
+        end
+
+        render json: already_done
+    end
+
 end

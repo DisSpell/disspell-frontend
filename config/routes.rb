@@ -19,4 +19,5 @@ Rails.application.routes.draw do
 
   get 'search-setup', to: 'video_scrape_api#search_setup'
   post 'search-setup-post', to: 'video_scrape_api#post'
+  post "get-videos", to: "video_scrape_api#get_videos"
 end
