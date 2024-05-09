@@ -5,8 +5,11 @@
 %>
 
 
-<section class="video-parent grid grid-cols-2 h-full overflow-y-hidden">
-  <section id="video-player" data-controller="perfect-scrollbar" class="relative pl-1.5">
+<section data-controller="perfect-scrollbar"
+  class="video-parent divide-y-4 lg:divide-x-4 grid grid-cols-1
+        lg:grid-cols-2 h-full overscroll-y-contain">
+  <section id="video-player" data-controller="perfect-scrollbar" 
+    class="relative lg:pl-1.5">
     <youtube-video-wrapper videoId=<%= @meta.video_identifier %>></youtube-video-wrapper>
     <div id="video-metadata">
       <h1><%= highlight(@video.title, params[:query], highlighter: '<mark style="background-color:yellow";>\1</mark>') %></h1>
@@ -17,7 +20,8 @@
       <p><%= @meta.published_date %></p>
     </div>
   </section>
-  <section id="video-details" data-controller="perfect-scrollbar" class="relative text-center pr-1.5">
+  <section id="video-details" data-controller="perfect-scrollbar" 
+    class="relative text-center pr-1.5">
     <section id="transcript">
       <h5>Transcript:</h5>
       <p>link: <%= @meta.url %></p>

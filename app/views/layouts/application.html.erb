@@ -3,6 +3,7 @@
   <head>
     <%= display_meta_tags site: "DisSpell" %>
     <title>title DisSpell</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🌀</text></svg>"></link>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -27,7 +28,10 @@
 
   <body class="grid grid-rows-[auto,1fr]">
     <%= render "layouts/header" %>
-    <main class="h-full overflow-y-hidden">
+    <main class="h-full overflow-y-hidden grid grid-rows-[min-content]">
+      <div class="self-center justify-self-center m-2">
+        <span class="text-sm">~<span>&#x1F4DC;&#128679;</span>~ researching ancient tomes ~<span>&#128679;&#x1F4DC;</span>~</span>
+      </div>
       <%= yield %>
     </main>
   </body>
