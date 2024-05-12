@@ -1,13 +1,13 @@
 <div data-controller="perfect-scrollbar"
-     class="h-full overscroll-y-contain relative lg:grid lg:grid-cols-3" 
+     class="relative h-full overscroll-y-contain lg:grid lg:grid-cols-4" 
   >
-  <div class="text-center lg:col-start-2 lg:col-end-3">
+  <div class="text-center lg:col-start-2 lg:col-end-4">
     <%= form_with url: "/search", method: :get do |form| %>
       <% if params[:query] %>
-        <h1 class="text-center"> DisSpell...ing ~~ <%= params[:query] %> </h1>
+        <h1 class="text-center text-purple-700"> DisSpell...ing ~~ <%= params[:query] %> </h1>
         <%= form.text_field :query, autofocus: true, placeholder: params[:query] %>
       <% else %>
-        <h2 class="text-2xl">~~ What should we DisSpell? ~~</h2>
+        <h2 class="text-2xl text-purple-700">~~ What should we DisSpell? ~~</h2>
         <%= form.text_field :query, autofocus: true %>
       <% end %>
       <%= form.submit "Search", class: 'custom-button' %>
@@ -15,11 +15,12 @@
   </div>
 
   <% unless @response == nil %>
-    <div class="m-2 hover:divide-y-2 hover:divide-indigo-700 lg:col-start-2 lg:col-end-3">
+    <div class="m-2 space-y-2 lg:col-start-2 lg:col-end-4">
       <% @response.each do |x| %>
-        <div class="group text-gray-800 hover:text-black">
+        <div class="group rounded-lg border-2 border-sky-400 p-1 pb-4 text-gray-800 
+                    shadow-lg hover:bg-sky-400 hover:text-white hover:shadow-2xl">
           <a href=<%= video_path(Video.find(x._source.video_id).slug) %>>
-            <h1 class="pl-3 text-center group-hover:underline group-hover:underline-offset-4">
+            <h1 class="pl-3 text-center text-purple-700 group-hover:text-white">
               <%= highlight(x._source.video_title, params[:query], 
                     highlighter: '<mark style="background-color:yellow";>\1</mark>') %>
             </h1>
@@ -27,28 +28,46 @@
           <% unless x._source.transcript == nil %>
             <% video_transcript_ts = multi_excerpt(x._source.transcript,
                                                    params[:query]) %>
-            <% video_transcript_ts[0].each_with_index do |part, index| %>
-              <% if index < 4  %>
-                <a href=<%= video_path(Video.find(x._source.video_id).slug) %>>
-                  <p class="text-center hover:underline"><%= video_transcript_ts[1][index] %></p>
-                  <p class="text-center hover:underline"><%= highlight(part, params[:query]) %></p>
-                </a>
+            <div class="flex flex-col space-y-6">
+              <% video_transcript_ts[0].each_with_index do |part, index| %>
+                <% if index < 4  %>
+                  <a href=<%= video_path(Video.find(x._source.video_id).slug) %>>
+                    <div class="group/timestamp content-center divide-x-2 
+                                grid grid-cols-[1fr_4fr]">
+                      <span class="self-center text-center group-hover/timestamp:underline" 
+                         data-vtt-timestamp="<%= video_transcript_ts[1][index] %>">
+                        <%= convert_vtt_timestamp(video_transcript_ts[1][index]) %>
+                      </span>
+                      <span class="self-center text-center group-hover/timestamp:underline">
+                        <%= highlight(part, params[:query]) %>
+                      </span>
+                    </div>
+                  </a>
+                <% end %>
+              <% end %>
+              <% if video_transcript_ts[0].count >= 5 %>
+                <details class="flex flex-cols space-y-6">
+                  <summary class="text-lg text-center hover:cursor-pointer">See More</summary>
+                  <% video_transcript_ts[0].each_with_index do |part, index| %>
+                    <% if index > 4 %>
+                      <a href=<%= video_path(Video.find(x._source.video_id).slug) %>>
+                        <div class="group/timestamp content-center divide-x-2 
+                                    grid grid-cols-[1fr_4fr]">
+                          <span class="self-center text-center group-hover/timestamp:underline" 
+                             data-vtt-timestamp="<%= video_transcript_ts[1][index] %>">
+                            <%= convert_vtt_timestamp(video_transcript_ts[1][index]) %>
+                          </span>
+                          <span class="self-center text-center group-hover/timestamp:underline">
+                            <%= highlight(part, params[:query]) %>
+                          </span>
+                        </div>
+                      </a>
+                    <% end %>
+                  <% end %>
+                </details>
               <% end %>
             <% end %>
-            <% if video_transcript_ts[0].count >= 5 %>
-              <details class="mt-3 text-lg">
-                <summary class="text-center">See More</summary>
-                <% video_transcript_ts[0].each_with_index do |part, index| %>
-                  <% if index > 4 %>
-                    <a href=<%= video_path(Video.find(x._source.video_id).slug) %>>
-                      <p class="text-center text-base hover:underline"><%= video_transcript_ts[1][index] %></p>
-                      <p class="text-center text-base hover:underline"><%= highlight(part, params[:query]) %></p>
-                    </a>
-                  <% end %>
-                <% end %>
-              </details>
-            <% end %>
-          <% end %>
+          </div>
         </div>
       <% end %>
     </div>

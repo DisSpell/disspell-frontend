@@ -5,9 +5,9 @@
 %>
 
 
-<section data-controller="perfect-scrollbar"
+<section
   class="video-parent divide-y-4 lg:divide-x-4 grid grid-cols-1
-        lg:grid-cols-2 h-full overscroll-y-contain">
+        lg:grid-cols-2 h-full overflow-y-hidden">
   <section id="video-player" data-controller="perfect-scrollbar" 
     class="relative lg:pl-1.5">
     <youtube-video-wrapper videoId=<%= @meta.video_identifier %>></youtube-video-wrapper>
