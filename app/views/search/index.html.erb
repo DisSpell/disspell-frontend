@@ -17,13 +17,17 @@
   <% unless @response == nil %>
     <div class="m-2 space-y-2 lg:col-start-2 lg:col-end-4">
       <% @response.each do |x| %>
-        <div class="group rounded-lg border-2 border-sky-400 p-1 pb-4 text-gray-800 
-                    shadow-lg hover:bg-sky-400 hover:text-white hover:shadow-2xl">
-          <a href=<%= video_path(Video.find(x._source.video_id).slug) %>>
-            <h1 class="pl-3 text-center text-purple-700 group-hover:text-white">
+        <div class="rounded-lg border-2 border-sky-400 p-1 pb-4 text-gray-800 
+                    shadow-lg hover:shadow-2xl">
+          <a class="grid grid-cols-[auto_1fr] mb-3 hover:shadow-2xl" 
+             href="<%= video_path(Video.find(x._source.video_id).slug, query: params[:query]) %>">
+            <img src="<%= x._source.thumbnail_url %>" alt="Thumbnail" 
+                class="self-center pl-2">
+            <h1 class="pl-3 text-center text-purple-700">
               <%= highlight(x._source.video_title, params[:query], 
                     highlighter: '<mark style="background-color:yellow";>\1</mark>') %>
             </h1>
+            <h2 class="col-span-2 text-center text-xl"><%= x._source.channel_title %></h2>
           </a>
           <% unless x._source.transcript == nil %>
             <% video_transcript_ts = multi_excerpt(x._source.transcript,
@@ -31,8 +35,8 @@
             <div class="flex flex-col space-y-6">
               <% video_transcript_ts[0].each_with_index do |part, index| %>
                 <% if index < 4  %>
-                  <a href=<%= video_path(Video.find(x._source.video_id).slug) %>>
-                    <div class="group/timestamp content-center divide-x-2 
+                  <a href="<%= video_path(Video.find(x._source.video_id).slug, query: params[:query]) %>">
+                    <div class="group/timestamp hover:shadow-lg content-center divide-x-2 
                                 grid grid-cols-[1fr_4fr]">
                       <span class="self-center text-center group-hover/timestamp:underline" 
                          data-vtt-timestamp="<%= video_transcript_ts[1][index] %>">
@@ -50,7 +54,7 @@
                   <summary class="text-lg text-center hover:cursor-pointer">See More</summary>
                   <% video_transcript_ts[0].each_with_index do |part, index| %>
                     <% if index > 4 %>
-                      <a href=<%= video_path(Video.find(x._source.video_id).slug) %>>
+                      <a href="<%= video_path(Video.find(x._source.video_id).slug, query: params[:query]) %>">
                         <div class="group/timestamp content-center divide-x-2 
                                     grid grid-cols-[1fr_4fr]">
                           <span class="self-center text-center group-hover/timestamp:underline" 

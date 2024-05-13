@@ -16,7 +16,7 @@ export default class extends Controller {
     // grab the initial timestamp
     var timestamp = this.timestampTarget
     // Split to get the start of the timestamp
-    var time = this.toSeconds(timestamp.innerText.split("-->")[0]);
+    var time = this.toSeconds(timestamp.dataset.vttTimestamp.split("-->")[0]);
     // Call custom element's method to jump to specific time
 
     if (this.videoPlayer.isPlayerReady) { // Check if the player is ready
