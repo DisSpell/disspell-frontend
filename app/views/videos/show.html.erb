@@ -1,6 +1,5 @@
 <%
-  set_meta_tags(
-    title: @video.title
+  set_meta_tags( title: @video.title
   )
 %>
 
@@ -28,35 +27,40 @@
       <p><%= @meta.published_date %></p>
     </div>
   </section>
-  <section id="video-details" data-controller="perfect-scrollbar" 
-    class="relative mr-2 text-center">
-    <section id="transcript" class="grid grid-cols space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_4fr] mt-8 p-4 sticky top-0 z-10 bg-white mr-[16px]">
-        <div class="self-center">x/y times</div>
-        <input type="text" placeholder="<%= params[:query] %>"></input>
-        <div class="flex justify-around col-start-2 mt-2">
-          <button class="custom-button">Prev</button>
-          <button class="custom-button">Next</button>
-        </div>
+  <section id="video-details" class="overflow-hidden grid">
+    <div data-controller="search"
+         class="grid lg:grid-cols-[1fr_4fr] m-3">
+      <div data-search-target="times" data-search-index-value="1" data-search-count-value="0"
+           class="self-center text-end pr-4"></div>
+      <input type="text" data-action="input->search#updateSearch" data-search-target="search"
+        value="<%= params[:query] %>"></input>
+      <div class="flex justify-around col-start-2 mt-2">
+        <button class="custom-button" data-action="search#prev">Prev</button>
+        <button class="custom-button" data-action="search#next">Next</button>
       </div>
-      <% @parts_timestramps_arrays.each do |subarray| %>
-        <div data-controller="transcript" class="group/timestamp hover:shadow-xl">
-          <div data-action="click->transcript#jumpToThisTime"
-               class="group/timestamp p-4 grid grid-cols-[1fr_4fr] 
-                      content-center divide-x-2 hover:cursor-pointer">
-            <span data-transcript-target="timestamp"
-                  class="self-center text-center pb-2
-                         group-hover/timestamp:underline"
-                  data-vtt-timestamp="<%= subarray.first %>">
-              <%= convert_vtt_timestamp(subarray.first) %>
-            </span>
-            <span class="self-center text-center group-hover/timestamp:underline 
-                         pb-2 pr-1 pl-1">
-              <%= highlight(subarray.second, params[:query]) %>
-            </span>
+    </div>
+    <section id="transcript" data-controller="perfect-scrollbar" 
+      class="relative h-full grid grid-cols space-y-1">
+      <div class="grid grid-cols space-y-1">
+        <% @parts_timestramps_arrays.each do |subarray| %>
+          <div data-controller="transcript" class="group/timestamp hover:shadow-xl">
+            <div data-action="click->transcript#jumpToThisTime"
+                 class="group/timestamp p-4 grid grid-cols-[auto_1fr] 
+                        content-center divide-x-2 hover:cursor-pointer">
+              <span data-transcript-target="timestamp"
+                    class="self-center text-center pl-3 pr-3
+                           group-hover/timestamp:underline"
+                    data-vtt-timestamp="<%= subarray.first %>">
+                <%= convert_vtt_timestamp(subarray.first) %>
+              </span>
+              <span data-transcript-text class="self-center text-start 
+                                                group-hover/timestamp:underline pr-1 pl-3">
+                <%= highlight(subarray.second, params[:query]) %>
+              </span>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </section>
   </section>
 </section>
