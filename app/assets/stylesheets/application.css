@@ -65,6 +65,8 @@
 /* 	border-spacing: 0; */
 /* } */
 
+@import 'simplebar/dist/simplebar.min.css';
+
 html {
 	scroll-behavior: smooth;
 }

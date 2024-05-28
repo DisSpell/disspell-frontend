@@ -64,6 +64,10 @@ export default class extends Controller {
     this.matchesValue = filteredMatchingItems.map(item => { return item["index"] })
   }
 
+  updateSearch() {
+    console.log('do something')
+  }
+
   updateIndexElement() {
     this.timesTarget.innerText = this.indexValue + 1 + "/" + this.countValue
   }

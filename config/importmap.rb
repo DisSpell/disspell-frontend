@@ -20,3 +20,7 @@ pin_all_from "app/javascript/lit", under: "lit"
 
 pin "chartkick", to: "https://ga.jspm.io/npm:chartkick@5.0.1/dist/chartkick.esm.js"
 pin "Chart.bundle", to: 'Chart.bundle.js'
+pin "simplebar" # @6.2.6
+pin "can-use-dom" # @0.1.0
+pin "lodash-es" # @4.17.21
+pin "simplebar-core" # @1.2.5

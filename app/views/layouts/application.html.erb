@@ -23,11 +23,17 @@
     <!--
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet">
     -->
+
+    <link
+      rel="stylesheet"
+        href="https://unpkg.com/simplebar@latest/dist/simplebar.css"
+        />
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
   </head>
 
-  <body class="grid grid-rows-[auto,1fr]">
+  <body class="grid grid-rows-[auto,1fr] h-dvh">
     <%= render "layouts/header" %>
-    <main class="h-full overflow-y-hidden grid grid-rows-[min-content]">
+    <main class="h-full grid grid-rows-[min-content] scroll-smooth overflow-y-hidden">
       <div class="self-center justify-self-center m-2">
         <span class="text-sm">~<span>&#x1F4DC;&#128679;</span>~ researching ancient tomes ~<span>&#128679;&#x1F4DC;</span>~</span>
       </div>

@@ -5,5 +5,7 @@ import "custom/ps"
 import "lit/youtube-video-wrapper"
 import "lit/transcript-wrapper"
 
-import "chartkick";
-import "Chart.bundle";
+// import 'simplebar'
+
+import "chartkick"
+import "Chart.bundle"
