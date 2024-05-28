@@ -5,7 +5,7 @@
 
 
 <section
-  class="video-parent grid h-screen grid-rows-[auto_1fr] gap-4 divide-y-4 overflow-y-hidden
+  class="video-parent grid h-full grid-rows-[auto_1fr] gap-4 divide-y-4 overflow-y-hidden
         lg:grid-cols-2 lg:divide-x-4 lg:divide-y-0">
   <section id="video-player"
     class="relative ml-2 mr-2 aspect-video">
@@ -28,18 +28,17 @@
     </div>
   </section>
   <transcript-wrapper class="overflow-y-hidden" query="<%= params[:query] %>">
-    <section id="video-details" class="overflow-hidden grid h-screen">
-      <div
-           class="grid lg:grid-cols-[1fr_4fr] m-3">
+    <section id="video-details" class="overflow-hidden grid h-full">
+      <div class="grid lg:grid-cols-[1fr_4fr] m-3 h-min">
         <div data-search-target="times" data-search-index-value="1" data-search-count-value="0"
              class="self-center text-end pr-4"></div>
         <input type="text" data-action="input->search#updateSearch" data-search-target="search" value="<%= params[:query] %>"></input>
-        <div class="flex justify-around col-start-2 mt-2">
+        <div class="flex justify-around col-start-2 mt-2 h-min">
           <button class="custom-button" data-action="search#prev">Prev</button>
           <button class="custom-button" data-action="search#next">Next</button>
         </div>
       </div>
-      <section id="transcript" data-simplebar class="h-full overflow-y-auto">
+      <section id="transcript" class="h-full overflow-y-auto">
         <div class="grid grid-cols space-y-1">
           <% @parts_timestramps_arrays.each do |subarray| %>
             <div data-controller="transcript" class="group/timestamp hover:shadow-xl">
