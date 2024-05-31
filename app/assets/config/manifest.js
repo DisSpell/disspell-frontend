@@ -4,5 +4,4 @@
 //= link_tree ../../../vendor/javascript .js
 //= link perfect-scrollbar.css
 //= link_tree ../builds
-//= link_tree ../../../vendor/assets/stylesheets/ .css
 

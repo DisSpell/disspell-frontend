@@ -12,14 +12,45 @@ class TranscriptWrapper extends LitElement {
     super()
   }
 
-  // createRenderRoot() {
-  //   return this;
-  // }
+  handleSearchMount(e) {
+    console.log('in search change', e.target.assignedElements({ flatten: true }))
+    const slotElement = e.target.assignedElements({ flatten: true })[0]
+    let searchCountElement = slotElement.querySelector('#searchCount')
+    let searchInputElement = slotElement.querySelector('#searchValue')
+    let prevButtonElement = slotElement.querySelector('#prevButton')
+    let nextButtonElement = slotElement.querySelector('#nextButton')
+    // console.log(slotElement, searchCountElement, searchInputElement, prevButtonElement, nextButtonElement)
+  }
 
-  jumpToThisTime(event) { 
-    var timestamp = event.target.previousElementSibling; 
-    var time = toSeconds(timestamp.innerText.split(""))
-    player.seekTo(time);  
+  handleTranscriptMount(e) {
+    console.log('in transcript change', e)
+    // this.addEventListener('click', (e) => console.log(e.type, e.target));
+    this.addEventListener('click', (e) => {
+      if ( e.target.dataset.vttTimestamp != undefined ) {
+        this.jumpToThisTime(e.target.dataset.vttTimestamp)
+      } else {
+        this.jumpToThisTime(e.target.parentElement.dataset.vttTimestamp)
+      }
+    })
+    // this.addEventListener('click', this.jumpToThisTime)
+    const slotElement = e.target.assignedElements({ flatten: true })[0]
+    let transcriptItemElement = slotElement.querySelectorAll('[data-event]')
+    // console.log(transcriptItemElement)
+  }
+
+  jumpToThisTime(timestamp) { 
+    // console.log('got into jumpToThisTime with this timestamp:', timestamp)
+    var time = this.toSeconds(timestamp.split(" ")[0])
+    // console.log('time:', time)
+
+    // send custom event to be picked up by yt-wrapper webcomponent
+    const changePlayerTime = new CustomEvent('changePlayerTime', {
+      detail: { message: time },
+      bubbles: true,
+      composed: true
+    });
+    this.dispatchEvent(changePlayerTime);
+    console.log('sent event', changePlayerTime)
   } 
   
   toSeconds(time) { 
@@ -38,7 +69,8 @@ class TranscriptWrapper extends LitElement {
   
   render() {
     return html `
-      <slot></slot>
+      <slot name="search" @slotchange=${this.handleSearchMount}></slot>
+      <slot name="transcript" @slotchange=${this.handleTranscriptMount}></slot>
     `;
   }
 }

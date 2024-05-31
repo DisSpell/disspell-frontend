@@ -26,14 +26,16 @@ class YoutubeVideoWrapper extends LitElement {
   };
 
   constructor() {
-    super();
-    this.videoId = '';
+    super()
+    this.videoId = ''
     this.player = null;
-    this.isPlayerReady = false;
+    this.isPlayerReady = false
+    this.handleChangePlayerTime = this.handleChangePlayerTime.bind(this)
   }
 
   connectedCallback() {
     super.connectedCallback();
+
     if (!window.YT) {
       // Load the YouTube iframe API script dynamically if not already loaded
       const tag = document.createElement('script');
@@ -45,6 +47,17 @@ class YoutubeVideoWrapper extends LitElement {
       // If the API is already loaded, directly call the initialization function
       this.onYouTubeIframeAPIReady();
     }
+
+    window.addEventListener('changePlayerTime', this.handleChangePlayerTime)
+  }
+
+  handleChangePlayerTime(e) {
+    this.player.seekTo(e.detail.message)
+  }
+
+  disconnectedCallback() {
+      super.disconnectedCallback();
+      window.removeEventListener('changePlayerTime', this.handleChangePlayerTime)
   }
 
   onYouTubeIframeAPIReady() {
@@ -64,14 +77,6 @@ class YoutubeVideoWrapper extends LitElement {
 
   onPlayerStateChange(event) {
     // You can handle player state changes here
-  }
-
-  jumpToThisTime(time) {
-    if (this.isPlayerReady && this.player) {
-      this.player.seekTo(time);
-    } else {
-      console.error('Player is not ready.');
-    }
   }
 
   render() {
