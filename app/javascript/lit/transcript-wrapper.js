@@ -48,7 +48,6 @@ class TranscriptWrapper extends LitElement {
       this.count = 1
     }
 
-    console.log(currentElement)
     // remove previous item's visual css indication
     currentElement.parentElement.style.cssText = ""
     
@@ -77,6 +76,7 @@ class TranscriptWrapper extends LitElement {
 
   scrollToSearchItem(item) {
     let originalScrollPosition = this.scrollTop
+    console.log(item)
     item.scrollIntoView()
     this.scrollTop = originalScrollPosition
 
@@ -108,7 +108,6 @@ class TranscriptWrapper extends LitElement {
       composed: true
     });
     this.dispatchEvent(changePlayerTime);
-    console.log('sent event', changePlayerTime)
   } 
   
   toSeconds(time) { 

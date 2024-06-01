@@ -28,7 +28,7 @@
     </div>
   </section>
   <section id="video-details" class="overflow-y-hidden grid h-full">
-    <transcript-wrapper class="overflow-y-hidden" query="<%= params[:query] %>">
+    <transcript-wrapper class="overflow-y-hidden flex flex-col" query="<%= params[:query] %>">
       <section class="grid lg:grid-cols-[auto_1fr] m-3 h-min" slot="search">
         <div id="searchCount" class="self-center text-end pl-3 pr-3"></div>
         <input id="searchValue" type="text" value="<%= params[:query] %>" class="ml-3 mr-1"></input>
@@ -37,7 +37,7 @@
           <button id="nextButton" class="custom-button">Next</button>
         </div>
       </section>
-      <section id="transcript" class="h-full overflow-y-auto" slot="transcript"
+      <section id="transcript" class="h-auto overflow-y-auto" slot="transcript"
         <div class="grid grid-cols space-y-1">
           <% @parts_timestramps_arrays.each do |subarray| %>
             <div data-item="transcript-timestamp" class="group/timestamp hover:shadow-xl">
