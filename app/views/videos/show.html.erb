@@ -27,13 +27,12 @@
       <p><%= @meta.published_date %></p>
     </div>
   </section>
-  <section id="video-details" class="overflow-hidden grid h-full">
+  <section id="video-details" class="overflow-y-hidden grid h-full">
     <transcript-wrapper class="overflow-y-hidden" query="<%= params[:query] %>">
-      <section class="grid lg:grid-cols-[1fr_4fr] m-3 h-min" slot="search">
-        <div id="searchCount" data-search-target="times" data-search-index-value="1" data-search-count-value="0"
-             class="self-center text-end pr-4"></div>
-        <input id="searchValue" type="text" value="<%= params[:query] %>"></input>
-        <div class="flex justify-around col-start-2 mt-2 h-min">
+      <section class="grid lg:grid-cols-[auto_1fr] m-3 h-min" slot="search">
+        <div id="searchCount" class="self-center text-end pl-3 pr-3"></div>
+        <input id="searchValue" type="text" value="<%= params[:query] %>" class="ml-3 mr-1"></input>
+        <div id="searchButtons" class="flex justify-around col-start-2 mt-2 h-min">
           <button id="prevButton" class="custom-button">Prev</button>
           <button id="nextButton" class="custom-button">Next</button>
         </div>
@@ -41,7 +40,7 @@
       <section id="transcript" class="h-full overflow-y-auto" slot="transcript"
         <div class="grid grid-cols space-y-1">
           <% @parts_timestramps_arrays.each do |subarray| %>
-            <div data-controller="transcript" class="group/timestamp hover:shadow-xl">
+            <div data-item="transcript-timestamp" class="group/timestamp hover:shadow-xl">
               <div data-event="transcriptClick" data-vtt-timestamp="<%= subarray.first %>"
                    class="group/timestamp p-4 grid grid-cols-[auto_1fr] 
                           content-center divide-x-2 hover:cursor-pointer">

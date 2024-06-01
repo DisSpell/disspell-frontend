@@ -6,42 +6,88 @@ class TranscriptWrapper extends LitElement {
 
   static properties = {
     query: { type: String },
+    count: { type: Number },
   };
 
   constructor() {
     super()
+    this.count = 1
+
+    this.handleNextButton = this.handleNextButton.bind(this)
+    this.handlePrevButton = this.handlePrevButton.bind(this)
+    this.totalSearchResults = this.totalSearchResults.bind(this)
+  }
+
+  totalSearchResults() {
+    let searchCountElement = this.querySelector('#searchCount')
+
+    let total = this.querySelectorAll('mark').length
+    searchCountElement.innerText = this.count + '/' + total
   }
 
   handleSearchMount(e) {
-    console.log('in search change', e.target.assignedElements({ flatten: true }))
+    // console.log('in search change', e.target.assignedElements({ flatten: true }))
+    this.totalSearchResults()
     const slotElement = e.target.assignedElements({ flatten: true })[0]
-    let searchCountElement = slotElement.querySelector('#searchCount')
     let searchInputElement = slotElement.querySelector('#searchValue')
-    let prevButtonElement = slotElement.querySelector('#prevButton')
-    let nextButtonElement = slotElement.querySelector('#nextButton')
-    // console.log(slotElement, searchCountElement, searchInputElement, prevButtonElement, nextButtonElement)
+    this.query = searchInputElement.value
+    let searchButtonElements = slotElement.querySelector('#searchButtons')
+    searchButtonElements.children.nextButton.addEventListener('click', this.handleNextButton)
+    searchButtonElements.children.prevButton.addEventListener('click', this.handlePrevButton)
+  }
+
+  handleNextButton(e) {
+    let searchElements = this.querySelectorAll('mark')
+
+    if ( (this.count + 1) < searchElements.length ) {
+      this.scrollToSearchItem(searchElements[this.count])
+      this.count += 1
+    } else {
+      this.scrollToSearchItem(searchElements[0])
+      this.count = 1
+    }
+    
+    // update visible search count
+    this.totalSearchResults()
+  }
+
+  handlePrevButton(e) {
+    let searchElements = this.querySelectorAll('mark')
+
+    if ( (this.count - 1) > 0 ) {
+      this.count -= 1
+      this.scrollToSearchItem(searchElements[this.count - 1])
+    } else {
+      this.scrollToSearchItem(searchElements[searchElements.length - 1])
+      this.count = searchElements.length
+    }
+
+    //update visible search count
+    this.totalSearchResults()
+  }
+
+  scrollToSearchItem(item) {
+    let originalScrollPosition = this.scrollTop
+    item.scrollIntoView()
+    this.scrollTop = originalScrollPosition
   }
 
   handleTranscriptMount(e) {
-    console.log('in transcript change', e)
-    // this.addEventListener('click', (e) => console.log(e.type, e.target));
-    this.addEventListener('click', (e) => {
+    const slotElement = e.target.assignedElements({ flatten: true })[0]
+    slotElement.addEventListener('click', (e) => {
       if ( e.target.dataset.vttTimestamp != undefined ) {
         this.jumpToThisTime(e.target.dataset.vttTimestamp)
       } else {
         this.jumpToThisTime(e.target.parentElement.dataset.vttTimestamp)
       }
     })
-    // this.addEventListener('click', this.jumpToThisTime)
-    const slotElement = e.target.assignedElements({ flatten: true })[0]
-    let transcriptItemElement = slotElement.querySelectorAll('[data-event]')
-    // console.log(transcriptItemElement)
+
+    // Scroll to the first match
+    this.scrollToSearchItem(this.querySelector('mark'))
   }
 
   jumpToThisTime(timestamp) { 
-    // console.log('got into jumpToThisTime with this timestamp:', timestamp)
     var time = this.toSeconds(timestamp.split(" ")[0])
-    // console.log('time:', time)
 
     // send custom event to be picked up by yt-wrapper webcomponent
     const changePlayerTime = new CustomEvent('changePlayerTime', {
@@ -74,4 +120,5 @@ class TranscriptWrapper extends LitElement {
     `;
   }
 }
+
 customElements.define('transcript-wrapper', TranscriptWrapper)
