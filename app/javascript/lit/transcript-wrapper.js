@@ -16,6 +16,7 @@ class TranscriptWrapper extends LitElement {
     this.handleNextButton = this.handleNextButton.bind(this)
     this.handlePrevButton = this.handlePrevButton.bind(this)
     this.totalSearchResults = this.totalSearchResults.bind(this)
+    this.scrollToSearchItem = this.scrollToSearchItem.bind(this)
   }
 
   totalSearchResults() {
@@ -76,7 +77,6 @@ class TranscriptWrapper extends LitElement {
 
   scrollToSearchItem(item) {
     let originalScrollPosition = this.scrollTop
-    console.log(item)
     item.scrollIntoView()
     this.scrollTop = originalScrollPosition
 
