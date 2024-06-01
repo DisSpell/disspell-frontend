@@ -38,6 +38,7 @@ class TranscriptWrapper extends LitElement {
 
   handleNextButton(e) {
     let searchElements = this.querySelectorAll('mark')
+    let currentElement = searchElements[this.count - 1]
 
     if ( (this.count + 1) < searchElements.length ) {
       this.scrollToSearchItem(searchElements[this.count])
@@ -46,6 +47,10 @@ class TranscriptWrapper extends LitElement {
       this.scrollToSearchItem(searchElements[0])
       this.count = 1
     }
+
+    console.log(currentElement)
+    // remove previous item's visual css indication
+    currentElement.parentElement.style.cssText = ""
     
     // update visible search count
     this.totalSearchResults()
@@ -53,6 +58,7 @@ class TranscriptWrapper extends LitElement {
 
   handlePrevButton(e) {
     let searchElements = this.querySelectorAll('mark')
+    let currentElement = searchElements[this.count - 1]
 
     if ( (this.count - 1) > 0 ) {
       this.count -= 1
@@ -62,6 +68,9 @@ class TranscriptWrapper extends LitElement {
       this.count = searchElements.length
     }
 
+    // remove previous item's visual css indication
+    currentElement.parentElement.style.cssText = ""
+
     //update visible search count
     this.totalSearchResults()
   }
@@ -70,6 +79,9 @@ class TranscriptWrapper extends LitElement {
     let originalScrollPosition = this.scrollTop
     item.scrollIntoView()
     this.scrollTop = originalScrollPosition
+
+    // put a css visual indicator
+    item.parentElement.style.cssText = "border-left: solid 4px rgb(59 130 246);"
   }
 
   handleTranscriptMount(e) {
