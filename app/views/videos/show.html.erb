@@ -6,7 +6,7 @@
 
 <section
   class="video-parent grid h-full grid-rows-[auto_1fr] gap-4 divide-y-4 overflow-y-hidden
-        lg:grid-cols-2 lg:divide-x-4 lg:divide-y-0">
+        lg:grid-cols-2 lg:divide-x-4 lg:divide-y-0 lg:gap-x-0">
   <section id="video-player"
     class="relative ml-2 mr-2 aspect-video">
     <youtube-video-wrapper videoId=<%= @meta.video_identifier %>></youtube-video-wrapper>
@@ -37,7 +37,7 @@
           <button id="nextButton" class="custom-button">Next</button>
         </div>
       </section>
-      <section id="transcript" class="h-auto overflow-y-auto" slot="transcript"
+      <section id="transcript" class="h-auto overflow-y-auto border-solid border-t-2 border-gray-300" slot="transcript"
         <div class="grid grid-cols space-y-1">
           <% @parts_timestramps_arrays.each do |subarray| %>
             <div data-item="transcript-timestamp" class="group/timestamp hover:shadow-xl">
