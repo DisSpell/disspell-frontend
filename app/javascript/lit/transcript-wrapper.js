@@ -13,8 +13,9 @@ class TranscriptWrapper extends LitElement {
     super()
     this.count = 1
 
-    this.handleNextButton = this.handleNextButton.bind(this)
-    this.handlePrevButton = this.handlePrevButton.bind(this)
+    this._handleNextButton = this._handleNextButton.bind(this)
+    this._handlePrevButton = this._handlePrevButton.bind(this)
+    this._handleSearchUpdate = this._handleSearchUpdate.bind(this)
     this.totalSearchResults = this.totalSearchResults.bind(this)
     this.scrollToSearchItem = this.scrollToSearchItem.bind(this)
   }
@@ -26,18 +27,19 @@ class TranscriptWrapper extends LitElement {
     searchCountElement.innerText = this.count + '/' + total
   }
 
-  handleSearchMount(e) {
+  _handleSearchMount(e) {
     // console.log('in search change', e.target.assignedElements({ flatten: true }))
     this.totalSearchResults()
     const slotElement = e.target.assignedElements({ flatten: true })[0]
     let searchInputElement = slotElement.querySelector('#searchValue')
-    this.query = searchInputElement.value
+    // this.query = searchInputElement.value
     let searchButtonElements = slotElement.querySelector('#searchButtons')
-    searchButtonElements.children.nextButton.addEventListener('click', this.handleNextButton)
-    searchButtonElements.children.prevButton.addEventListener('click', this.handlePrevButton)
+    searchButtonElements.children.nextButton.addEventListener('click', this._handleNextButton)
+    searchButtonElements.children.prevButton.addEventListener('click', this._handlePrevButton)
+    slotElement.querySelector('#searchValue').addEventListener('change', this._handleSearchUpdate)
   }
 
-  handleNextButton(e) {
+  _handleNextButton(e) {
     let searchElements = this.querySelectorAll('mark')
     let currentElement = searchElements[this.count - 1]
 
@@ -56,7 +58,7 @@ class TranscriptWrapper extends LitElement {
     this.totalSearchResults()
   }
 
-  handlePrevButton(e) {
+  _handlePrevButton(e) {
     let searchElements = this.querySelectorAll('mark')
     let currentElement = searchElements[this.count - 1]
 
@@ -77,14 +79,34 @@ class TranscriptWrapper extends LitElement {
 
   scrollToSearchItem(item) {
     let originalScrollPosition = this.scrollTop
-    item.scrollIntoView()
+    item.parentElement.scrollIntoView()
     this.scrollTop = originalScrollPosition
 
     // put a css visual indicator
     item.parentElement.style.cssText = "border-left: solid 4px rgb(59 130 246);"
   }
 
-  handleTranscriptMount(e) {
+  _handleSearchUpdate(e) {
+    // remove previous search item styling and reset count
+    this.querySelectorAll('mark')[this.count - 1].parentElement.style.cssText = ""
+    this.count = 1
+
+    // remove old search marks
+    this.querySelectorAll('mark').forEach(mark => { mark.outerHTML = mark.innerHTML })
+    // mark the new search term
+    this.querySelectorAll('[data-transcript-text]').forEach( transcriptTextItem => { 
+      const regex = new RegExp(`(${e.target.value})`, 'gi')
+      transcriptTextItem.innerHTML = transcriptTextItem.innerHTML.replace(regex, '<mark>$1</mark>')
+    })
+
+    // scroll to first instance
+    this.scrollToSearchItem(this.querySelector('mark'))
+
+    // update total results
+    this.totalSearchResults()
+  }
+
+  _handleTranscriptMount(e) {
     const slotElement = e.target.assignedElements({ flatten: true })[0]
     slotElement.addEventListener('click', (e) => {
       if ( e.target.dataset.vttTimestamp != undefined ) {
@@ -126,8 +148,8 @@ class TranscriptWrapper extends LitElement {
   
   render() {
     return html `
-      <slot name="search" @slotchange=${this.handleSearchMount}></slot>
-      <slot name="transcript" @slotchange=${this.handleTranscriptMount}></slot>
+      <slot name="search" @slotchange=${this._handleSearchMount}></slot>
+      <slot name="transcript" @slotchange=${this._handleTranscriptMount}></slot>
     `;
   }
 }
