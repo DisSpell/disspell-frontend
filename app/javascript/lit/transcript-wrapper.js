@@ -43,7 +43,7 @@ class TranscriptWrapper extends LitElement {
     let searchElements = this.querySelectorAll('mark')
     let currentElement = searchElements[this.count - 1]
 
-    if ( (this.count + 1) < searchElements.length ) {
+    if ( (this.count + 1) <= searchElements.length ) {
       this.scrollToSearchItem(searchElements[this.count])
       this.count += 1
     } else {
