@@ -6,5 +6,17 @@
       </div>
     </a>  
   </div>
+  <div data-controller="menu" class="flex flex-row flex-wrap justify-end items-center">
+    <div id="burger-menu" class="mr-3" data-menu-target="burgerMenu" data-action="click->menu#toggleMenu">
+        <span></span>
+    </div>
+    <div id="menu" data-menu-target="overlayMenu">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/contact_us">Contact Us</a></li>
+        <li><a href="/donations">Donate</a></li>
+      </ul>
+    </div>
+  </div>
 </header>
 

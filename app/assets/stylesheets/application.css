@@ -41,7 +41,7 @@
 /*         min-width: 0; */
 /*         min-height: 0; */
 /* } */
-/* /* HTML5 display-role reset for older browsers */ */
+/* /* HTML5 display-role reset for older browsers */
 /* article, aside, details, figcaption, figure,  */
 /* footer, header, hgroup, menu, nav, section { */
 /* 	display: block; */
@@ -65,12 +65,10 @@
 /* 	border-spacing: 0; */
 /* } */
 
-@import 'simplebar/dist/simplebar.min.css';
-
 html {
-	scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 html body {
-	height: 100vh;
+  height: 100dvh;
 }
