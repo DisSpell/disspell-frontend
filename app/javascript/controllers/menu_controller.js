@@ -6,11 +6,10 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log('in menu stimulus controller')
+    // console.log('in menu stimulus controller')
   }
 
   toggleMenu() {
-    console.log('in toggle')
     this.burgerMenuTarget.classList.toggle("close");
     this.overlayMenuTarget.classList.toggle("overlay");
   }
