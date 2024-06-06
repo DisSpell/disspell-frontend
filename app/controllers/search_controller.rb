@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   def index
     if params[:query].present?
       @search = Search.search(params[:query]).records
-      @response = @search.paginate(page: params[:page], per_page: 10)
+      @response = @search.page(params[:page]).per(1)
     end
   end
 
