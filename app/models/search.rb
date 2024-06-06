@@ -1,6 +1,7 @@
 class Search < ApplicationRecord
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
+  # include WillPaginate::CollectionMethods
 
   mapping do
     indexes :video_title, type: :text
@@ -19,11 +20,9 @@ class Search < ApplicationRecord
   end
 
   def self.search(query)
-    # build and run search
-
     params = {
-      # size: 10,
-      # from: 20,
+      size: 100,
+      # from: from,
       query: {
         bool: {
           should: [
@@ -33,9 +32,11 @@ class Search < ApplicationRecord
         },
       },
     }
-
+  
     self.__elasticsearch__.search(params)
   end
+  
+ 
 
 
   def self.advanced_search(params)
