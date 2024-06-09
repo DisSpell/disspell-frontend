@@ -6,7 +6,8 @@
       card: "summary",
       site: "@Dis_Spell",
       title: @video.title,
-      image: @meta.thumbnail_url.gsub("default", "maxresdefault")
+      image: @meta.thumbnail_url.gsub("default", "maxresdefault"),
+      description: "DisSpell makes video transcripts searchable like:" + @video.title
     }
   )
 %>
