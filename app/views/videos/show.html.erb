@@ -1,5 +1,14 @@
 <%
-  set_meta_tags( title: @video.title
+  set_meta_tags( 
+    title: @video.title,
+    reverse: true,
+    twitter: {
+      card: "summary",
+      site: "@Dis_Spell",
+      title: @video.title,
+      image: @meta.thumbnail_url.gsub("default", "maxresdefault"),
+      description: "DisSpell makes video transcripts searchable like:" + @video.title
+    }
   )
 %>
 
