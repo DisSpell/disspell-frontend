@@ -17,7 +17,7 @@
   class="video-parent grid h-full gap-4 divide-y-4 overflow-y-hidden
         lg:grid-cols-2 lg:divide-x-4 lg:divide-y-0 lg:gap-x-0">
   <section id="video-player"
-    class="relative ml-2 mr-2 aspect-video overflow-hidden">
+    class="relative ml-2 mr-2 aspect-video overflow-y-auto">
     <youtube-video-wrapper videoId=<%= @meta.video_identifier %>></youtube-video-wrapper>
     <h2 class="text-lg pl-2 m-2"><%= highlight(@video.title, params[:query], highlighter: '<mark style="background-color:yellow";>\1</mark>') %></h1>
     <details class="lg:hidden">
