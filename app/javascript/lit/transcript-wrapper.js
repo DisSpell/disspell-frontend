@@ -24,7 +24,11 @@ class TranscriptWrapper extends LitElement {
     let searchCountElement = this.querySelector('#searchCount')
 
     let total = this.querySelectorAll('mark').length
-    searchCountElement.innerText = this.count + '/' + total
+    if (total > 0) {
+      searchCountElement.innerText = this.count + '/' + total
+    } else {
+      searchCountElement.innerText = '0'
+    }
   }
 
   _handleSearchMount(e) {
@@ -43,7 +47,7 @@ class TranscriptWrapper extends LitElement {
     let searchElements = this.querySelectorAll('mark')
     let currentElement = searchElements[this.count - 1]
 
-    if ( (this.count + 1) <= searchElements.length ) {
+    if ((this.count + 1) <= searchElements.length) {
       this.scrollToSearchItem(searchElements[this.count])
       this.count += 1
     } else {
@@ -53,7 +57,7 @@ class TranscriptWrapper extends LitElement {
 
     // remove previous item's visual css indication
     currentElement.parentElement.style.cssText = ""
-    
+
     // update visible search count
     this.totalSearchResults()
   }
@@ -62,7 +66,7 @@ class TranscriptWrapper extends LitElement {
     let searchElements = this.querySelectorAll('mark')
     let currentElement = searchElements[this.count - 1]
 
-    if ( (this.count - 1) > 0 ) {
+    if ((this.count - 1) > 0) {
       this.count -= 1
       this.scrollToSearchItem(searchElements[this.count - 1])
     } else {
@@ -78,6 +82,7 @@ class TranscriptWrapper extends LitElement {
   }
 
   scrollToSearchItem(item) {
+    if (item == null) { return }
     let originalScrollPosition = this.scrollTop
     item.parentElement.scrollIntoView()
     this.scrollTop = originalScrollPosition
@@ -88,13 +93,16 @@ class TranscriptWrapper extends LitElement {
 
   _handleSearchUpdate(e) {
     // remove previous search item styling and reset count
-    this.querySelectorAll('mark')[this.count - 1].parentElement.style.cssText = ""
-    this.count = 1
+    if (this.querySelectorAll('mark').length != 0) {
+      this.querySelectorAll('mark')[this.count - 1].parentElement.style.cssText = ""
+      this.count = 1
 
-    // remove old search marks
-    this.querySelectorAll('mark').forEach(mark => { mark.outerHTML = mark.innerHTML })
+      // remove old search marks
+      this.querySelectorAll('mark').forEach(mark => { mark.outerHTML = mark.innerHTML })
+    }
+
     // mark the new search term
-    this.querySelectorAll('[data-transcript-text]').forEach( transcriptTextItem => { 
+    this.querySelectorAll('[data-transcript-text]').forEach(transcriptTextItem => {
       const regex = new RegExp(`(${e.target.value})`, 'gi')
       transcriptTextItem.innerHTML = transcriptTextItem.innerHTML.replace(regex, '<mark>$1</mark>')
     })
@@ -109,7 +117,7 @@ class TranscriptWrapper extends LitElement {
   _handleTranscriptMount(e) {
     const slotElement = e.target.assignedElements({ flatten: true })[0]
     slotElement.addEventListener('click', (e) => {
-      if ( e.target.dataset.vttTimestamp != undefined ) {
+      if (e.target.dataset.vttTimestamp != undefined) {
         this.jumpToThisTime(e.target.dataset.vttTimestamp)
       } else {
         this.jumpToThisTime(e.target.parentElement.dataset.vttTimestamp)
@@ -120,7 +128,7 @@ class TranscriptWrapper extends LitElement {
     this.scrollToSearchItem(this.querySelector('mark'))
   }
 
-  jumpToThisTime(timestamp) { 
+  jumpToThisTime(timestamp) {
     var time = this.toSeconds(timestamp.split(" ")[0])
 
     // send custom event to be picked up by yt-wrapper webcomponent
@@ -130,24 +138,24 @@ class TranscriptWrapper extends LitElement {
       composed: true
     });
     this.dispatchEvent(changePlayerTime);
-  } 
-  
-  toSeconds(time) { 
+  }
+
+  toSeconds(time) {
     // Split the time by the separators 
-    var parts = time.split(/[:.]/); 
+    var parts = time.split(/[:.]/);
     // Get the hours, minutes, seconds, and milliseconds 
-    var hours = parseInt(parts[0], 10); 
-    var minutes = parseInt(parts[1], 10); 
-    var seconds = parseInt(parts[2], 10); 
-    var milliseconds = parseInt(parts[3], 10); 
+    var hours = parseInt(parts[0], 10);
+    var minutes = parseInt(parts[1], 10);
+    var seconds = parseInt(parts[2], 10);
+    var milliseconds = parseInt(parts[3], 10);
     // Calculate the total seconds 
-    var total = hours * 3600 + minutes * 60 + seconds + milliseconds / 1000; 
+    var total = hours * 3600 + minutes * 60 + seconds + milliseconds / 1000;
     // Return the result 
-    return Math.round(total); 
-  } 
-  
+    return Math.round(total);
+  }
+
   render() {
-    return html `
+    return html`
       <slot name="search" @slotchange=${this._handleSearchMount}></slot>
       <slot name="transcript" @slotchange=${this._handleTranscriptMount}></slot>
     `;
