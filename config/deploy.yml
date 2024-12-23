@@ -72,10 +72,10 @@ accessories:
     options:
       network: "internal"
     env:
-      clear:
-        - DB_HOST
-        - POSTGRES_USER
-        - POSTGRES_DATABASE
+      #      clear:
+      #        - DB_HOST
+      #        - POSTGRES_USER
+      #        - POSTGRES_DATABASE
       secret:
         - POSTGRES_PASSWORD
     files:
