@@ -65,10 +65,10 @@
         inherit
           (rubyNix {
             inherit gemset ruby;
-            name = "my-rails-app";
+            name = "DisSpell Frontend";
             gemConfig = pkgs.defaultGemConfig // gemConfig;
           })
-          env
+          # env
           ;
 
         devShells = rec {
@@ -76,7 +76,7 @@
           dev = pkgs.mkShell {
             buildInputs =
               [
-                env
+                # env
                 bundixcli
                 bundleLock
                 bundleUpdate
