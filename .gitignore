@@ -13,6 +13,11 @@
 /.env*
 !/.env*.erb
 
+# Ignore direnv build, start from the flake!!
+.direnv/
+/.direnv/*
+/.direnv
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
