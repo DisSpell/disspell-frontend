@@ -1,0 +1,102 @@
+{
+  description = "A simple ruby app demo";
+
+  nixConfig = {
+    extra-substituters = "https://nixpkgs-ruby.cachix.org";
+    extra-trusted-public-keys = "nixpkgs-ruby.cachix.org-1:vrcdi50fTolOxWCZZkw0jakOnUI1T19oYJ+PRYdK4SM=";
+    allowUnfree = true;
+  };
+
+  inputs = {
+    nixpkgs.url = "nixpkgs";
+    ruby-nix.url = "github:inscapist/ruby-nix";
+    bundix = {
+      url = "github:inscapist/bundix/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    fu.url = "github:numtide/flake-utils";
+    bob-ruby.url = "github:bobvanderlinden/nixpkgs-ruby";
+    bob-ruby.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs =
+    {
+      self,
+      nixpkgs,
+      fu,
+      ruby-nix,
+      bundix,
+      bob-ruby,
+    }:
+    with fu.lib;
+    eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ bob-ruby.overlays.default ];
+          config.allowUnfree = true;
+        };
+        rubyNix = ruby-nix.lib pkgs;
+
+        gemset = if builtins.pathExists ./gemset.nix then import ./gemset.nix else { };
+
+        gemConfig = {
+          preBuild = ''
+            # Remove .git directories from gems to avoid collisions
+            find . -name '.git' -type d -exec rm -rf {} +
+          '';
+        };
+
+        ruby = pkgs."ruby-3.4.1";
+
+        bundixcli = bundix.packages.${system}.default;
+
+        bundleLock = pkgs.writeShellScriptBin "bundle-lock" ''
+          export BUNDLE_PATH=vendor/bundle
+          bundle lock
+        '';
+        bundleUpdate = pkgs.writeShellScriptBin "bundle-update" ''
+          export BUNDLE_PATH=vendor/bundle
+          bundle lock --update
+        '';
+      in
+      rec {
+        inherit
+          (rubyNix {
+            inherit gemset ruby;
+            name = "DisSpell Frontend";
+            gemConfig = pkgs.defaultGemConfig // gemConfig;
+          })
+          env;
+
+        devShells = rec {
+          default = dev;
+          dev = pkgs.mkShell {
+            buildInputs =
+              [
+                env
+                bundixcli
+                bundleLock
+                bundleUpdate
+              ]
+              ++ (with pkgs; [
+	        postgresql
+		elasticsearch
+                yarn
+                rufo
+		libyaml
+              ]);
+            shellHook = ''
+              alias start-postgres='initdb -D ./pgdata || true; pg_ctl -D ./pgdata -l logfile start'
+              alias stop-postgres='pg_ctl -D ./pgdata stop'
+
+	      echo 'User "start-postgres" command to start postgresql.'
+              echo 'Use "stop-postgres" command to shut down postgresql.'
+            '';
+	  };
+        };
+      }
+    );
+}
+

@@ -1,0 +1,74 @@
+2025-01-10 11:03:18.981 CST [77743] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-01-10 11:03:18.982 CST [77743] LOG:  listening on IPv6 address "::1", port 5432
+2025-01-10 11:03:18.982 CST [77743] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-01-10 11:03:18.984 CST [77743] FATAL:  could not create lock file "/run/postgresql/.s.PGSQL.5432.lock": No such file or directory
+2025-01-10 11:03:18.985 CST [77743] LOG:  database system is shut down
+2025-01-10 11:05:19.885 CST [78093] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-01-10 11:05:19.885 CST [78093] LOG:  listening on IPv6 address "::1", port 5432
+2025-01-10 11:05:19.885 CST [78093] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-01-10 11:05:19.887 CST [78093] FATAL:  could not create lock file "/run/postgresql/.s.PGSQL.5432.lock": No such file or directory
+2025-01-10 11:05:19.888 CST [78093] LOG:  database system is shut down
+2025-01-10 11:24:22.550 CST [79072] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-01-10 11:24:22.551 CST [79072] LOG:  listening on IPv6 address "::1", port 5432
+2025-01-10 11:24:22.551 CST [79072] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-01-10 11:24:22.553 CST [79072] FATAL:  could not create lock file "/run/postgresql/.s.PGSQL.5432.lock": No such file or directory
+2025-01-10 11:24:22.554 CST [79072] LOG:  database system is shut down
+2025-01-10 12:11:06.114 CST [80130] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-01-10 12:11:06.114 CST [80130] LOG:  listening on IPv6 address "::1", port 5432
+2025-01-10 12:11:06.114 CST [80130] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-01-10 12:11:06.116 CST [80130] FATAL:  could not create lock file "/run/postgresql/.s.PGSQL.5432.lock": No such file or directory
+2025-01-10 12:11:06.117 CST [80130] LOG:  database system is shut down
+2025-01-10 12:15:28.145 CST [80575] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-01-10 12:15:28.145 CST [80575] LOG:  listening on IPv6 address "::1", port 5432
+2025-01-10 12:15:28.145 CST [80575] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-01-10 12:15:28.152 CST [80575] LOG:  listening on Unix socket "run/postgresql/.s.PGSQL.5432"
+2025-01-10 12:15:28.165 CST [80579] LOG:  database system was shut down at 2025-01-10 11:03:18 CST
+2025-01-10 12:15:28.170 CST [80575] LOG:  database system is ready to accept connections
+2025-01-10 12:17:08.084 CST [85331] FATAL:  lock file "postmaster.pid" already exists
+2025-01-10 12:17:08.084 CST [85331] HINT:  Is another postmaster (PID 80575) running in data directory "/home/doom/Projects/disspell-frontend/pgdata"?
+2025-01-10 12:17:08.177 CST [80575] LOG:  received fast shutdown request
+2025-01-10 12:17:08.180 CST [80575] LOG:  aborting any active transactions
+2025-01-10 12:17:08.181 CST [80575] LOG:  background worker "logical replication launcher" (PID 80582) exited with exit code 1
+2025-01-10 12:17:08.182 CST [80577] LOG:  shutting down
+2025-01-10 12:17:08.183 CST [80577] LOG:  checkpoint starting: shutdown immediate
+2025-01-10 12:17:08.211 CST [80577] LOG:  checkpoint complete: wrote 44 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.006 s, sync=0.012 s, total=0.030 s; sync files=11, longest=0.002 s, average=0.002 s; distance=247 kB, estimate=247 kB; lsn=0/1528498, redo lsn=0/1528498
+2025-01-10 12:17:08.218 CST [80575] LOG:  database system is shut down
+2025-01-10 12:18:03.872 CST [90045] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-01-10 12:18:03.873 CST [90045] LOG:  listening on IPv6 address "::1", port 5432
+2025-01-10 12:18:03.873 CST [90045] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-01-10 12:18:03.877 CST [90045] LOG:  listening on Unix socket "run/postgresql/.s.PGSQL.5432"
+2025-01-10 12:18:03.883 CST [90048] LOG:  database system was shut down at 2025-01-10 12:17:08 CST
+2025-01-10 12:18:03.889 CST [90045] LOG:  database system is ready to accept connections
+2025-01-10 12:18:03.950 CST [90045] LOG:  received fast shutdown request
+2025-01-10 12:18:03.952 CST [90045] LOG:  aborting any active transactions
+2025-01-10 12:18:03.955 CST [90045] LOG:  background worker "logical replication launcher" (PID 90051) exited with exit code 1
+2025-01-10 12:18:03.956 CST [90046] LOG:  shutting down
+2025-01-10 12:18:03.958 CST [90046] LOG:  checkpoint starting: shutdown immediate
+2025-01-10 12:18:03.976 CST [90046] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.005 s, sync=0.003 s, total=0.021 s; sync files=2, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/1528510, redo lsn=0/1528510
+2025-01-10 12:18:03.982 CST [90045] LOG:  database system is shut down
+2025-01-10 13:12:22.902 CST [96003] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-01-10 13:12:22.902 CST [96003] LOG:  listening on IPv6 address "::1", port 5432
+2025-01-10 13:12:22.902 CST [96003] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-01-10 13:12:22.905 CST [96003] LOG:  listening on Unix socket "run/postgresql/.s.PGSQL.5432"
+2025-01-10 13:12:22.909 CST [96006] LOG:  database system was shut down at 2025-01-10 12:18:03 CST
+2025-01-10 13:12:22.913 CST [96003] LOG:  database system is ready to accept connections
+2025-01-10 13:12:22.992 CST [96003] LOG:  received fast shutdown request
+2025-01-10 13:12:22.994 CST [96003] LOG:  aborting any active transactions
+2025-01-10 13:12:22.998 CST [96003] LOG:  background worker "logical replication launcher" (PID 96009) exited with exit code 1
+2025-01-10 13:12:22.998 CST [96004] LOG:  shutting down
+2025-01-10 13:12:23.000 CST [96004] LOG:  checkpoint starting: shutdown immediate
+2025-01-10 13:12:23.018 CST [96004] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.006 s, sync=0.003 s, total=0.021 s; sync files=2, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/1528588, redo lsn=0/1528588
+2025-01-10 13:12:23.024 CST [96003] LOG:  database system is shut down
+2025-01-10 13:17:17.056 CST [96304] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-01-10 13:17:17.057 CST [96304] LOG:  listening on IPv6 address "::1", port 5432
+2025-01-10 13:17:17.057 CST [96304] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-01-10 13:17:17.062 CST [96304] LOG:  listening on Unix socket "run/postgresql/.s.PGSQL.5432"
+2025-01-10 13:17:17.069 CST [96307] LOG:  database system was shut down at 2025-01-10 13:12:23 CST
+2025-01-10 13:17:17.075 CST [96304] LOG:  database system is ready to accept connections
+2025-01-10 13:17:17.123 CST [96304] LOG:  received fast shutdown request
+2025-01-10 13:17:17.125 CST [96304] LOG:  aborting any active transactions
+2025-01-10 13:17:17.129 CST [96304] LOG:  background worker "logical replication launcher" (PID 96310) exited with exit code 1
+2025-01-10 13:17:17.129 CST [96305] LOG:  shutting down
+2025-01-10 13:17:17.131 CST [96305] LOG:  checkpoint starting: shutdown immediate
+2025-01-10 13:17:17.153 CST [96305] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.009 s, sync=0.003 s, total=0.025 s; sync files=2, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/1528600, redo lsn=0/1528600
+2025-01-10 13:17:17.158 CST [96304] LOG:  database system is shut down
