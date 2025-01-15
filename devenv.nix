@@ -73,6 +73,6 @@
 
   processes = {
     rails.exec = "bundle exec rails server";
-    tailwind.exec = "tailwindcss --watch";
+    tailwind.exec = "bin/rails tailwindcss:watch";
   };
 }
